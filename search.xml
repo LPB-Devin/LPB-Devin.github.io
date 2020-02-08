@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Java学习路线</title>
-    <url>/linpaibin/2020/02/08/hello-world/</url>
+    <url>/2020/02/08/hello-world/</url>
     <content><![CDATA[<p><img src="https://i.loli.net/2020/01/12/UYB9sHelnRL15XF.jpg" alt="1源码分析专题.jpg"></p>
 <p><img src="https://i.loli.net/2020/01/12/JhGaO1jWexKMlwo.jpg" alt="2性能优化.jpg"></p>
 <p><img src="https://i.loli.net/2020/01/12/EuNyqAFs4bBDCm6.jpg" alt="3高性能.jpg"></p>
@@ -11,7 +11,7 @@
   </entry>
   <entry>
     <title>Vue版本更新</title>
-    <url>/linpaibin/2020/02/04/Vue/Vue%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0/</url>
+    <url>/2020/02/04/Vue/Vue%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0/</url>
     <content><![CDATA[<blockquote>
 <p> 一段时间没用Vue，重新拿起来，哇擦都更新到4.x版本了……看着自己的2.9.6版本，陷入了沉思……</p>
 </blockquote>
@@ -31,7 +31,7 @@
   </entry>
   <entry>
     <title>【Redis】Redis的内存淘汰策略</title>
-    <url>/linpaibin/2020/01/16/Redis/%E3%80%90Redis%E3%80%91%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E6%BB%A1%E4%BA%86%E4%BC%9A%E5%AE%95%E6%9C%BA%E5%90%97/</url>
+    <url>/2020/01/16/Redis/%E3%80%90Redis%E3%80%91%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E6%BB%A1%E4%BA%86%E4%BC%9A%E5%AE%95%E6%9C%BA%E5%90%97/</url>
     <content><![CDATA[<h2 id="带着问题学习"><a href="#带着问题学习" class="headerlink" title="带着问题学习"></a>带着问题学习</h2><p><strong>Redis数据库内存满了的话，会不会造成宕机？</strong></p>
 <h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><p>这问题一开始便有一坑，Redis并不会让内存数据存满这种情况发生。在使用Redis的时候，我们需要配置Redis能够使用的最大内存大小， 存到一定容量的时候还有Redis的内存淘汰策略呢，还有最近最少使用(LRU)算法进行淘汰，等等。。。 </p>
 <h2 id="Redis占用内存"><a href="#Redis占用内存" class="headerlink" title="Redis占用内存"></a>Redis占用内存</h2><p>众所周知，Redis是基于内存的key-value数据库，因为系统的内存大小有限，在使用Redis的时候，可以配置Redis能使用的最大内存大小。</p>
@@ -114,7 +114,7 @@
   </entry>
   <entry>
     <title>HashMap底层为什么时数组链表结构</title>
-    <url>/linpaibin/2020/01/16/HashMap%E5%BA%95%E5%B1%82%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%B6%E6%95%B0%E7%BB%84%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84/</url>
+    <url>/2020/01/16/HashMap%E5%BA%95%E5%B1%82%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%B6%E6%95%B0%E7%BB%84%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>之前面试时问了HashMap的底层结构，详细见本人个人对HashMap和Hashtable底层实现的见解，入口如下：<br><a href="https://blog.csdn.net/weixin_40849588/article/details/88384922" target="_blank" rel="noopener">Java中HashMap与HashTable底层的联系与区别</a></p>
 <p>之后被问到HashMap底层为什么是数组链表呢？这样的话，链表一长，在链表中查询的效率不是很低吗？<br>我：（哑了）<br>最近看到一个比较有依据的答案，在此做一下答复。</p>
 <h2 id="HashMap底层为什么是数组链表呢？在链表中查询的效率不是很低吗？"><a href="#HashMap底层为什么是数组链表呢？在链表中查询的效率不是很低吗？" class="headerlink" title="HashMap底层为什么是数组链表呢？在链表中查询的效率不是很低吗？"></a>HashMap底层为什么是数组链表呢？在链表中查询的效率不是很低吗？</h2><p>在JDK1.7以及1.7版本之前，HashMap对数组元素即链表的查询确实是从头节点开始查询的，这样链表一旦长了，效率比较低也是意料之中。<br>而在1.8中对HashMap的数据结构进行了一定的优化，其中<strong>增加了一个阈值对数组元素进行判断是否有必要进行红黑树变形</strong>（红黑树是一种二叉查找树），一旦链表长度达到了阈值，其数据结构便会变形为红黑树，提高了查询效率，但插入的效率并没有链表头插法那么高，这也可能是HashMap底层为什么不用红黑树组成的数组的原因之一。<br>性能对比：</p>
@@ -136,7 +136,7 @@
   </entry>
   <entry>
     <title>部署云服务器</title>
-    <url>/linpaibin/2020/01/16/%E9%83%A8%E7%BD%B2%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <url>/2020/01/16/%E9%83%A8%E7%BD%B2%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
     <content><![CDATA[<p>[toc]</p>
 <hr>
 ## 本文部署环境
@@ -181,7 +181,7 @@
   </entry>
   <entry>
     <title>【面经】计算机网络</title>
-    <url>/linpaibin/2020/01/16/%E3%80%90%E9%9D%A2%E7%BB%8F%E3%80%91%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
+    <url>/2020/01/16/%E3%80%90%E9%9D%A2%E7%BB%8F%E3%80%91%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<p>[toc]</p>
 <hr>
 
@@ -295,7 +295,7 @@
   </entry>
   <entry>
     <title>Java内存模型</title>
-    <url>/linpaibin/2020/01/16/Java/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</url>
+    <url>/2020/01/16/Java/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<p>[toc]</p>
 <h1 id="Java内存模型（JMM）"><a href="#Java内存模型（JMM）" class="headerlink" title="Java内存模型（JMM）"></a>Java内存模型（JMM）</h1><pre><code>JMM全称Java Memory Model 。其实JMM并不像JVM内存结构一样是真实存在的。他只是一个抽象的概念。
 
@@ -342,7 +342,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Redis安装配置及数据类型</title>
-    <url>/linpaibin/2020/01/16/Redis%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    <url>/2020/01/16/Redis%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>[toc]</p>
 <p>Redis，一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可以持久化的日志型、Key-Value数据库，并提供多种语言的API；</p>
 <blockquote>
@@ -521,7 +521,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>http各个版本的区别</title>
-    <url>/linpaibin/2020/01/16/http%E5%90%84%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <url>/2020/01/16/http%E5%90%84%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>[toc]</p>
 <h1 id="http1-0、1-1和2-0的区别"><a href="#http1-0、1-1和2-0的区别" class="headerlink" title="http1.0、1.1和2.0的区别"></a>http1.0、1.1和2.0的区别</h1><h2 id="一、1-0与1-1"><a href="#一、1-0与1-1" class="headerlink" title="一、1.0与1.1"></a>一、1.0与1.1</h2><h3 id="1、缓存处理"><a href="#1、缓存处理" class="headerlink" title="1、缓存处理"></a>1、缓存处理</h3><ul>
 <li>在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，</li>
@@ -587,7 +587,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>在编译器中刷LeetCode</title>
-    <url>/linpaibin/2020/01/16/LeetCode/%E5%9C%A8%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%AD%E5%88%B7LeetCode/</url>
+    <url>/2020/01/16/LeetCode/%E5%9C%A8%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%AD%E5%88%B7LeetCode/</url>
     <content><![CDATA[<p>[toc]</p>
 <h1 id="在Idea中刷LeetCode"><a href="#在Idea中刷LeetCode" class="headerlink" title="在Idea中刷LeetCode"></a>在Idea中刷LeetCode</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>  在IDE中解决LeetCode问题,支持<code>leetcode.com</code>与<code>leetcode-cn.com</code>,满足基本的做题需求。<br>  理论上支持: IntelliJ IDEA  PhpStorm  WebStorm  PyCharm  RubyMine  AppCode  CLion  GoLand  DataGrip  Rider MPS  Android Studio。  </p>
 <h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p align="center">
@@ -654,7 +654,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Java重写比较器</title>
-    <url>/linpaibin/2020/01/16/Java/Java%E9%87%8D%E5%86%99%E6%AF%94%E8%BE%83%E5%99%A8/</url>
+    <url>/2020/01/16/Java/Java%E9%87%8D%E5%86%99%E6%AF%94%E8%BE%83%E5%99%A8/</url>
     <content><![CDATA[<h1 id="重写Comparetor"><a href="#重写Comparetor" class="headerlink" title="重写Comparetor"></a>重写Comparetor</h1><h3 id="1、Comparetor简单比较"><a href="#1、Comparetor简单比较" class="headerlink" title="1、Comparetor简单比较"></a>1、Comparetor简单比较</h3><p>Java中的排序默认是升序排序，重写为降序如下：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">           Interval intemp = <span class="keyword">new</span> Interval(i,ia);</span><br><span class="line">           list.add(intemp);</span><br><span class="line">       &#125;</span><br><span class="line">       Collections.sort(list, <span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer i1, Integer i2)</span> </span>&#123;</span><br><span class="line">               <span class="keyword">if</span> (i1 &gt; i2) &#123;</span><br><span class="line">                   <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">//不用交换</span></span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="keyword">return</span> <span class="number">0</span>;	<span class="comment">//其他情况交换</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">           System.out.println(list.get(i));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
@@ -667,7 +667,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【Mybatis】resultMap解析</title>
-    <url>/linpaibin/2020/01/15/Mybatis%E4%B8%AD%E7%9A%84resultMap%E8%A7%A3%E6%9E%90/</url>
+    <url>/2020/01/15/Mybatis%E4%B8%AD%E7%9A%84resultMap%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<h1 id="ResultMap解析"><a href="#ResultMap解析" class="headerlink" title="ResultMap解析"></a>ResultMap解析</h1><p>在Mybatis中，resultMap节点定义了结果集和结果对象（JavaBean）之间的映射规则。</p>
 <p>本文章主要讲述的是resultMap的解析。</p>
 <h2 id="相关基础类"><a href="#相关基础类" class="headerlink" title="相关基础类"></a>相关基础类</h2><h3 id="1、ResultMapping：列映射类"><a href="#1、ResultMapping：列映射类" class="headerlink" title="1、ResultMapping：列映射类"></a>1、ResultMapping：列映射类</h3><p>ResultMapping对象记录了结果集中的一列与对应JavaBean中一个属性的映射关系；</p>
@@ -763,7 +763,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>负载均衡算法</title>
-    <url>/linpaibin/2020/01/12/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95/</url>
+    <url>/2020/01/12/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>均衡地将客户端请求分散到各个服务器中</p>
 <h2 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h2><h2 id="最小活跃数"><a href="#最小活跃数" class="headerlink" title="最小活跃数"></a>最小活跃数</h2><h2 id="随机算法"><a href="#随机算法" class="headerlink" title="随机算法"></a>随机算法</h2><p>随机权重考虑</p>
 <p>eg：</p>
@@ -821,7 +821,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>SpringBoot企业开发</title>
-    <url>/linpaibin/2020/01/09/SpringBoot%E4%BC%81%E4%B8%9A%E5%BC%80%E5%8F%91/</url>
+    <url>/2020/01/09/SpringBoot%E4%BC%81%E4%B8%9A%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<h1 id="SpringBoot企业开发"><a href="#SpringBoot企业开发" class="headerlink" title="SpringBoot企业开发"></a>SpringBoot企业开发</h1><p>本文主要介绍在Spring boot企业开发中一些常用的功能：邮件发送、定时任务、批处理、Swagger2和数据校验等，这些功能都有着非常广泛的使用场景，如用户注册、修改密码、定时备份、接口文档等。除了Swagger2外，其他功能在Springboot中都提供了相关的Starter，简化了开发过程，明显提高了开发效率。</p>
 <h2 id="一、邮件发送"><a href="#一、邮件发送" class="headerlink" title="一、邮件发送"></a>一、邮件发送</h2><p>qq邮箱配置验证码：略</p>
 <ol>
@@ -1175,7 +1175,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Keytool生成Https证书</title>
-    <url>/linpaibin/2020/01/09/Java/Keytool%E7%94%9F%E6%88%90Https%E8%AF%81%E4%B9%A6/</url>
+    <url>/2020/01/09/Java/Keytool%E7%94%9F%E6%88%90Https%E8%AF%81%E4%B9%A6/</url>
     <content><![CDATA[<h1 id="利用JDK中的Keytool生成Https证书"><a href="#利用JDK中的Keytool生成Https证书" class="headerlink" title="利用JDK中的Keytool生成Https证书"></a>利用JDK中的Keytool生成Https证书</h1><h2 id="Https证书"><a href="#Https证书" class="headerlink" title="Https证书"></a>Https证书</h2><p>Https具有良好的安全性，在开发过程中得到了越来越广泛的应用，如微信公众号、小程序等等的开发都要使用https来完成。</p>
 <p>国内有些云服务器厂商可以提供免费的https证书，一个账号也可以申请多个。在Java的JDK中也提供了一个Java数字证书管理工具——keytool，存在于jdk/bin目录下，可以通过该工具生成自己的一个数字证书。</p>
 <h2 id="Keytool生成Https证书"><a href="#Keytool生成Https证书" class="headerlink" title="Keytool生成Https证书"></a>Keytool生成Https证书</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">keytool -genkey -alias tomcathttps -keyalg RSA -keysize 2048 -keystore lpb.devin -validity 365</span><br></pre></td></tr></table></figure>
@@ -1205,7 +1205,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>生活笔记【一】</title>
-    <url>/linpaibin/2020/01/05/%E7%94%9F%E6%B4%BB/%E3%80%90%E6%96%B0%E5%B9%B4%E7%AC%94%E8%AE%B0%E3%80%912020/</url>
+    <url>/2020/01/05/%E7%94%9F%E6%B4%BB/%E3%80%90%E6%96%B0%E5%B9%B4%E7%AC%94%E8%AE%B0%E3%80%912020/</url>
     <content><![CDATA[<h1 id="第一篇生活笔记"><a href="#第一篇生活笔记" class="headerlink" title="第一篇生活笔记"></a>第一篇生活笔记</h1><blockquote>
 <p> 暂时不知写啥，那就待续……嘻嘻</p>
 </blockquote>
@@ -1216,7 +1216,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Mysql事务隔离级别和MVCC</title>
-    <url>/linpaibin/2020/01/03/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8CMVCC/</url>
+    <url>/2020/01/03/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8CMVCC/</url>
     <content><![CDATA[<p>[toc]</p>
 <h1 id="Mysql的事务隔离级别"><a href="#Mysql的事务隔离级别" class="headerlink" title="Mysql的事务隔离级别"></a>Mysql的事务隔离级别</h1><p>准备工作：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 事先准备一个基本表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    c <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8; </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 准备一条数据</span></span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span>(<span class="number">1</span>, <span class="string">'刘备'</span>);</span><br></pre></td></tr></table></figure>
@@ -1467,7 +1467,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【年度总结】2019</title>
-    <url>/linpaibin/2020/01/01/InformalEssay/%E3%80%90%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%E3%80%912019/</url>
+    <url>/2020/01/01/InformalEssay/%E3%80%90%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%E3%80%912019/</url>
     <content><![CDATA[<h1 id="【2019】年度总结"><a href="#【2019】年度总结" class="headerlink" title="【2019】年度总结"></a>【2019】年度总结</h1><blockquote>
 <p>从零到一的过程，往往最能让人印象深刻</p>
 </blockquote>
@@ -1479,7 +1479,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>技术书籍推荐</title>
-    <url>/linpaibin/2019/12/26/InformalEssay/%E6%8A%80%E6%9C%AF%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/</url>
+    <url>/2019/12/26/InformalEssay/%E6%8A%80%E6%9C%AF%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/</url>
     <content><![CDATA[<h3 id="Web前端"><a href="#Web前端" class="headerlink" title="Web前端"></a>Web前端</h3><ul>
 <li>Js高级程序设计</li>
 <li>Js语言精粹</li>
@@ -1536,7 +1536,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>IDEA插件推荐</title>
-    <url>/linpaibin/2019/12/22/IdeaTools/IDEA%E6%8F%92%E4%BB%B6/</url>
+    <url>/2019/12/22/IdeaTools/IDEA%E6%8F%92%E4%BB%B6/</url>
     <content><![CDATA[<h2 id="IDEA插件推荐"><a href="#IDEA插件推荐" class="headerlink" title="IDEA插件推荐"></a>IDEA插件推荐</h2><h3 id="EasyCode"><a href="#EasyCode" class="headerlink" title="EasyCode"></a>EasyCode</h3>]]></content>
       <tags>
         <tag>IDEA</tag>
@@ -1544,7 +1544,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>SpringCloud微服务组件</title>
-    <url>/linpaibin/2019/12/15/Microservice/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6/</url>
+    <url>/2019/12/15/Microservice/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6/</url>
     <content><![CDATA[<h1 id="微服务组件"><a href="#微服务组件" class="headerlink" title="微服务组件"></a>微服务组件</h1><h2 id="1、Eureka"><a href="#1、Eureka" class="headerlink" title="1、Eureka"></a>1、Eureka</h2><h4 id="Eureka服务端"><a href="#Eureka服务端" class="headerlink" title="Eureka服务端"></a>Eureka服务端</h4><blockquote>
 <p>也称服务注册中心</p>
 </blockquote>
@@ -1563,7 +1563,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>快速搭建docker服务器环境并进行项目部署</title>
-    <url>/linpaibin/2019/12/14/docker/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BAdocker%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/</url>
+    <url>/2019/12/14/docker/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BAdocker%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<h1 id="快速搭建Docker服务器环境"><a href="#快速搭建Docker服务器环境" class="headerlink" title="快速搭建Docker服务器环境"></a>快速搭建Docker服务器环境</h1><h1 id="一、快速搭建Docker服务器环境"><a href="#一、快速搭建Docker服务器环境" class="headerlink" title="一、快速搭建Docker服务器环境"></a>一、快速搭建Docker服务器环境</h1><blockquote>
 <p><strong>关于Docker</strong></p>
 <p>​    当前热门的容器引擎技术。Docker功能强大，涉及知识面也很广，之后会再慢慢、进一步介绍和描述Docker的基础知识。本文主要通过一个实例，演示如何在服务器上快速搭建Docker环境。</p>
@@ -1641,7 +1641,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>IDEA 快捷键大全</title>
-    <url>/linpaibin/2019/12/07/IdeaTools/IDEA-%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/</url>
+    <url>/2019/12/07/IdeaTools/IDEA-%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/</url>
     <content><![CDATA[<p>[toc]</p>
 <h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><blockquote>
 <p>Ctrl + Shift + A 快捷键可以查找 Intellij 的所有命令，且有带有其快捷键信息，可谓一大神键，也适合我们了解、学习快捷键的工具。</p>
@@ -2021,7 +2021,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>AboutMe</title>
-    <url>/linpaibin/2019/12/02/AboutMe/</url>
+    <url>/2019/12/02/AboutMe/</url>
     <content><![CDATA[<h1 id="林湃滨"><a href="#林湃滨" class="headerlink" title="林湃滨"></a>林湃滨</h1><blockquote>
 <p>A Student  living in GuangZhou China.</p>
 </blockquote>
@@ -2042,7 +2042,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Java正则表达式语法</title>
-    <url>/linpaibin/2019/11/05/Java/Java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95/</url>
+    <url>/2019/11/05/Java/Java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[]]></content>
       <tags>
         <tag>Java</tag>
@@ -2050,7 +2050,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【Deepin】配置Java开发环境</title>
-    <url>/linpaibin/2019/11/03/Java/Deepin%E9%85%8D%E7%BD%AEJava%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+    <url>/2019/11/03/Java/Deepin%E9%85%8D%E7%BD%AEJava%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h2 id="官网下载JDK"><a href="#官网下载JDK" class="headerlink" title="官网下载JDK"></a>官网下载JDK</h2><h2 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h2><p>设置默认JDK版本，以及配置可选JDK版本</p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2>]]></content>
       <categories>
@@ -2062,7 +2062,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【XSS攻击】XSS攻击简介以及预防</title>
-    <url>/linpaibin/2019/11/02/XSS%E6%94%BB%E5%87%BB/</url>
+    <url>/2019/11/02/XSS%E6%94%BB%E5%87%BB/</url>
     <content><![CDATA[<h2 id="1、XSS攻击"><a href="#1、XSS攻击" class="headerlink" title="1、XSS攻击"></a>1、XSS攻击</h2><p>XSS是一种常出现在Web应用中的计算机安全漏洞。</p>
 <p>Web用户会将代码植入到页面之中，这些代码中包括HTML代码和客户端脚本。攻击者可以利用XSS的漏洞在web页面插入恶意的代码，达到对用户进行恶意攻击的目的。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>众所周知，HTML是一种超文本标记语言，通过一些设定的字符搭配来区分文本和标记，如&lt;title&gt;与&lt;/title&gt;之间的内容能够识别为html页面的标题，&lt;script&gt;与&lt;/script&gt;之间的内容识别为一段JavaScript脚本等等。</p>
@@ -2099,7 +2099,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Java中的集合</title>
-    <url>/linpaibin/2019/10/29/Java/JavaStructure/</url>
+    <url>/2019/10/29/Java/JavaStructure/</url>
     <content><![CDATA[<p>[TOC]</p>
 <blockquote>
 <p>Java集合体系结构（容器）主要有Set、LIst、Map三个接口</p>
@@ -2321,7 +2321,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>JpaPagingQuery</title>
-    <url>/linpaibin/2019/10/24/Jpa/JpaPagingQuery/</url>
+    <url>/2019/10/24/Jpa/JpaPagingQuery/</url>
     <content><![CDATA[<h1 id="JPA分页查询方法"><a href="#JPA分页查询方法" class="headerlink" title="JPA分页查询方法"></a>JPA分页查询方法</h1><p>JpaRepository接口有提供如下表中所述的内置查询</p>
 <table>
 <thead>
@@ -2387,7 +2387,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【Netty】Netty简介</title>
-    <url>/linpaibin/2019/10/21/Netty/%E3%80%90Netty%E3%80%91Netty%E7%AE%80%E4%BB%8B/</url>
+    <url>/2019/10/21/Netty/%E3%80%90Netty%E3%80%91Netty%E7%AE%80%E4%BB%8B/</url>
     <content><![CDATA[<h1 id="【Netty】初探"><a href="#【Netty】初探" class="headerlink" title="【Netty】初探"></a>【Netty】初探</h1><h2 id="走进Java-NIO"><a href="#走进Java-NIO" class="headerlink" title="走进Java NIO"></a>走进Java NIO</h2><h3 id="同步阻塞BIO"><a href="#同步阻塞BIO" class="headerlink" title="同步阻塞BIO"></a>同步阻塞BIO</h3><p>同步阻塞I/O，服务器实现模式为一个连接一个线程，即<strong>客户端有连接请求时服务器就需要启动一个线程进行处理</strong>，如果这个连接不做任何事情会造成不必要的线程开销，可以通过<strong>线程池机制</strong>来改善。</p>
 <p>BIO方式适用于<strong>连接数目比较小且固定的架构</strong>，这种方式对服务端资源要求比较高，并发局限于应用中，在jdk1.4以前是唯一的io，但程序直观简单易理解</p>
 <h3 id="伪同步I-O"><a href="#伪同步I-O" class="headerlink" title="伪同步I/O"></a>伪同步I/O</h3><h3 id="同步非阻塞NIO（New-IO-Non-block-IO）"><a href="#同步非阻塞NIO（New-IO-Non-block-IO）" class="headerlink" title="同步非阻塞NIO（New IO/Non-block IO）"></a>同步非阻塞NIO（New IO/Non-block IO）</h3><p>同步非阻塞IO，服务器实现模式为<strong>一个请求一个线程</strong>，即客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到连接有io请求时候，会启动一个线程进行处理。</p>
@@ -2408,7 +2408,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【Redis】Redis简介</title>
-    <url>/linpaibin/2019/10/21/Redis/%E3%80%90Redis%E3%80%91Redis%E7%AE%80%E4%BB%8B/</url>
+    <url>/2019/10/21/Redis/%E3%80%90Redis%E3%80%91Redis%E7%AE%80%E4%BB%8B/</url>
     <content><![CDATA[<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h2><p>Redis 是完全开源免费的，遵守 BSD 协议，是一个高性能的 key - value 数据库</p>
 <p>Redis 与 其他 key - value 缓存产品有以下三个特点：</p>
 <ul>
@@ -2551,7 +2551,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>分布式架构体系</title>
-    <url>/linpaibin/2019/10/19/DistributedArchitecture/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB/</url>
+    <url>/2019/10/19/DistributedArchitecture/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB/</url>
     <content><![CDATA[]]></content>
       <tags>
         <tag>分布式</tag>
@@ -2559,7 +2559,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Git实现版本控制</title>
-    <url>/linpaibin/2019/10/19/Git/VersionControlByGit/</url>
+    <url>/2019/10/19/Git/VersionControlByGit/</url>
     <content><![CDATA[<h1 id="Git实现项目版本控制"><a href="#Git实现项目版本控制" class="headerlink" title="Git实现项目版本控制"></a>Git实现项目版本控制</h1><blockquote>
 <p>Git 与GitHub：Git是一个版本控制工具，而GitHub事一个面向开源以及私有软件项目的托管平台，程序员交流的地方</p>
 </blockquote>
@@ -2576,7 +2576,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Java内存模型</title>
-    <url>/linpaibin/2019/10/19/Java/JavaMemoryModel/</url>
+    <url>/2019/10/19/Java/JavaMemoryModel/</url>
     <content><![CDATA[<h1 id="Java内存模型（JMM）"><a href="#Java内存模型（JMM）" class="headerlink" title="Java内存模型（JMM）"></a>Java内存模型（JMM）</h1><p>​    JMM全称Java Memory Model 。其实JMM并不像JVM内存结构一样是真实存在的。他只是一个抽象的概念。</p>
 <p>​    JMM是和多线程相关的，他描述了一组规则或规范，这个规范定义了一个线程对共享变量的写入时对另一个线程是可见的。</p>
 <h2 id="JMM定义"><a href="#JMM定义" class="headerlink" title="JMM定义"></a>JMM定义</h2><p>​    Java内存模型（Java Memory Model ,JMM）就是一种符合内存模型规范的，屏蔽了各种硬件和操作系统的访问差异的，保证了Java程序在各种平台下对内存的访问都能得到一致效果的机制及规范。目的是解决由于多线程通过共享内存进行通信时，存在的<strong>原子性</strong>、<strong>可见性</strong>（缓存一致性）以及<strong>有序性</strong>问题。</p>
@@ -2615,7 +2615,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>CommonDesignMode</title>
-    <url>/linpaibin/2019/10/18/designMode/CommonDesignMode/</url>
+    <url>/2019/10/18/designMode/CommonDesignMode/</url>
     <content><![CDATA[<p>[TOC]</p>
 <h1 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h3 id="懒汉式单例"><a href="#懒汉式单例" class="headerlink" title="懒汉式单例"></a>懒汉式单例</h3><p>线程不安全</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getIntance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="keyword">null</span>)</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2648,7 +2648,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>Docker容器学习</title>
-    <url>/linpaibin/2019/10/16/docker/DockerLearn/</url>
+    <url>/2019/10/16/docker/DockerLearn/</url>
     <content><![CDATA[<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="认识Docker"><a href="#认识Docker" class="headerlink" title="认识Docker"></a>认识Docker</h2><h3 id="Docker是什么？"><a href="#Docker是什么？" class="headerlink" title="Docker是什么？"></a>Docker是什么？</h3><p>Docker类似于集装箱。</p>
 <p>Docker是LXC（Linux Containers，Linux容器）的高级容器引擎。是一个软件容器平台。</p>
 <p>仓库：docker存放的事 镜像 + 私人镜像 ==》 dockerhub</p>
@@ -2669,7 +2669,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【Java】多线程</title>
-    <url>/linpaibin/2019/10/16/Java/JavaMultiThread/</url>
+    <url>/2019/10/16/Java/JavaMultiThread/</url>
     <content><![CDATA[<h1 id="Java中的多线程"><a href="#Java中的多线程" class="headerlink" title="Java中的多线程"></a>Java中的多线程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="用多线程的目的是什么？"><a href="#用多线程的目的是什么？" class="headerlink" title="用多线程的目的是什么？"></a>用多线程的目的是什么？</h3><p>充分利用cpu资源，并发做多件事。</p>
 <h3 id="如何在Java程序中创建一个线程？"><a href="#如何在Java程序中创建一个线程？" class="headerlink" title="如何在Java程序中创建一个线程？"></a>如何在Java程序中创建一个线程？</h3><p>本质：new Thread()</p>
 <ol>
@@ -2739,7 +2739,7 @@ Java中的volatile关键字提供了一个功能，那就是被其修饰的变�
   </entry>
   <entry>
     <title>【框架】SpringCloud总结</title>
-    <url>/linpaibin/2019/10/15/JavaFrame/SpringCloudIntroduction/</url>
+    <url>/2019/10/15/JavaFrame/SpringCloudIntroduction/</url>
     <content><![CDATA[<h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1><h2 id="1、单体架构系统与分布式集群"><a href="#1、单体架构系统与分布式集群" class="headerlink" title="1、单体架构系统与分布式集群"></a>1、单体架构系统与分布式集群</h2><h3 id="单体架构系统"><a href="#单体架构系统" class="headerlink" title="单体架构系统"></a>单体架构系统</h3><p>单体架构便是将所有功能都放于一个应用之中。</p>
 <p>单体架构系统的特点：</p>
 <ul>
