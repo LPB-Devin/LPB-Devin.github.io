@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="林湃滨的个人博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Redis安装配置及数据类型 |  滨书
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="滨书" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Redis安装配置及数据类型" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redis安装配置及数据类型
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/16/Redis%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time datetime="2020-01-16T03:08:34.000Z" itemprop="datePublished">2020-01-16</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.9k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">15分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>[toc]</p>
+<p>Redis，一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可以持久化的日志型、Key-Value数据库，并提供多种语言的API；</p>
+<blockquote>
+<p>Redis像是一个HashMap，但它不在JVM中运行，而是以一个独立进程的形式运行。</p>
+</blockquote>
+<pre><code>数据的存取速度比数据库（Mysql）快，一般会被当作缓存使用，所以常用的数据可以考虑放在这里以**提高性能**。</code></pre><h2 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h2><h3 id="Window安装"><a href="#Window安装" class="headerlink" title="Window安装"></a>Window安装</h3><p><a href="https://github.com/dmajkic/redis/downloads" target="_blank" rel="noopener">window安装地址</a></p>
+<p>下载到的Redis支持32bit和64bit。根据自己实际情况选择，将64bit的内容cp到自定义盘符安装目录取名redis。 如 G:\redis。<br>1、打开运行根目录下的 <strong>redis-server.exe</strong> ，运行窗口保持打开状态，不要关了。</p>
+<blockquote>
+<p>想方便的话，可以将redis的路径加入到系统的环境变量之中，就省得输路径了</p>
+<p><img src="https://img-blog.csdnimg.cn/20190803005923736.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDg0OTU4OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、再打开目录下的<strong>redis-cli.exe</strong>，或者执行命令： redis-cli.exe -h 127.0.0.1 -p 6379<br><img src="https://img-blog.csdnimg.cn/20190803010150494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDg0OTU4OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h2 id="Redis配置"><a href="#Redis配置" class="headerlink" title="Redis配置"></a>Redis配置</h2><p>Redis的配置文件位于Redis安装目录中，文件名为redis.conf</p>
+<p>通过CONFIG命令查看和设置配置项</p>
+<h3 id="1、查看配置"><a href="#1、查看配置" class="headerlink" title="1、查看配置"></a>1、查看配置</h3><p>命令格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; CONFIG GET CONFIG_SETTING_NAME</span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; CONFIG GET loglevel</span><br><span class="line"></span><br><span class="line">1) &quot;loglevel&quot;</span><br><span class="line">2) &quot;notice&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用符号 * 获取所有配置项</p>
+</blockquote>
+<h3 id="2、修改配置"><a href="#2、修改配置" class="headerlink" title="2、修改配置"></a>2、修改配置</h3><p>命令格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; CONFIG SET CONFIG_SETTING_NAME NEW_CONFIG_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; CONFIG SET loglevel &quot;notice&quot;</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; CONFIG GET loglevel</span><br><span class="line"></span><br><span class="line">1) &quot;loglevel&quot;</span><br><span class="line">2) &quot;notice&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、配置项参数说明"><a href="#3、配置项参数说明" class="headerlink" title="3、配置项参数说明"></a>3、配置项参数说明</h3><ol>
+<li><p>daemonize：Redis默认不是以守护进程的方式运行，可以通过该配置项修改为yes启用守护进程。</p>
+<blockquote>
+<p>当redis以守护进程方式运行时，redis默认会把pid写入/var/run/redis.pid文件，可通过pidfile指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pidfile &#x2F;var&#x2F;run&#x2F;redis.pid</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+</li>
+<li><p>port：指定reids监听端口，默认端口为6379 。</p>
+</li>
+<li><p>bind：绑定的主机地址，默认127.0.0.1</p>
+</li>
+<li><p>timeout：客户端闲置多长时间关闭连接，若为0，表示关闭该功能</p>
+</li>
+<li><p>loglevel：日志记录级别。</p>
+<blockquote>
+<p>redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose</p>
+</blockquote>
+</li>
+<li><p>databases：设置数据库的数量，默认为0，可使用SELECT &lt;dbid&gt; 命令在连接上指定数据库id</p>
+</li>
+<li><p>save &lt;seconds&gt;  &lt;changes&gt; ：表示在多长时间内 (以s为单位) 有几次更新操作，将数据同步到数据文件。</p>
+<blockquote>
+<p>redis中默认配置文件中提供了三个条件：</p>
+<ul>
+<li>save 900 1</li>
+<li>save 300 10</li>
+<li>save 60 10000</li>
+</ul>
+</blockquote>
+</li>
+<li><p>rdbcompression：指定存储到本地数据库时是否压缩数据，默认为yes。</p>
+<blockquote>
+<p>redis采用LZF压缩，如果为了节省CPU时间，可以关闭该选项，但会导致数据库文件大小变得很大</p>
+</blockquote>
+</li>
+<li><p>dbfilename：指定本地数据库文件名，默认值为dump.rdb</p>
+</li>
+<li><p>dir：指定本地数据库存放目录</p>
+</li>
+<li><p>slaveof &lt;masterip&gt; &lt;masterport&gt;：</p>
+<blockquote>
+<p>设置当本机为slav服务时，设置master服务的ip地址以及端口，在redis启动时候，会自动从master进行数据同步</p>
+</blockquote>
+</li>
+<li><p>masterauth &lt;master-password&gt;：当master服务设置了密码保护时候，slav服务连接master的密码。</p>
+</li>
+<li><p>requirepass foobared：</p>
+<p>设置redis连接密码，如果设置了连接密码，客户端在连接redis时候需要通过AUTH &lt;password&gt; 命令提供密码，默认no</p>
+</li>
+<li><p>maxclients 128：</p>
+<pre><code>&gt; 设置同一时间最大客户端连接数，默认无限制。
+&gt;
+&gt; Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，_如果设置 maxclients 0，表示不作限制_。
+&gt;
+&gt; 当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max number of clients reached错误信息</code></pre></li>
+<li><p>maxmemory &lt;bytes&gt;：指定Redis最大内存限制</p>
+<blockquote>
+<p>Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，当此方法处理后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。</p>
+<p>Redis新的vm机制，会把Key存放内存，Value会存放在swap区</p>
+</blockquote>
+</li>
+<li><p>appendonly no ：指定是否在每次更新操作后进行日志记录，默认为no</p>
+<blockquote>
+<p>Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。</p>
+<p>因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。</p>
+</blockquote>
+</li>
+<li><p>appendfilename appendonly.aof：指定更新日志文件名，默认为appendonly.aof</p>
+</li>
+<li><p>appendfsync everysec：指定更新日志条件。</p>
+<blockquote>
+<p>共有三个可选值：</p>
+<ul>
+<li>no：表示等操作系统进行数据缓存同步到磁盘（快）</li>
+<li>always：表示每次更新操作后手动调用fsync()将数据写到磁盘（慢，安全）</li>
+<li>everysec：表示每秒同步一次（折中，默认）</li>
+</ul>
+</blockquote>
+</li>
+<li><p>vm-enabled no：指定是否启用虚拟内存机制，默认值为no</p>
+<blockquote>
+<p>VM机制将数据进行分页存放，由Redis将访问量较少的页即冷数据swap到磁盘上，访问多的页面由磁盘自动换出到内存中</p>
+</blockquote>
+</li>
+<li><p>vm-swap-file /tmp/redis.swap：虚拟内存文件路径，默认为/tmp/redis.swap，多个redis实例不可共享。</p>
+</li>
+<li><p>vm-max-memory 0 ：将所有大于vm-max-memory的数据存入虚拟内存中，默认为0。</p>
+<blockquote>
+<p>Redis的所有索引数据（即keys）都是存储在内存当中的，无论vm-max-memory设置为何值。</p>
+<p>当vm-max-memory设置为0 时，其实便是所有value都存在于磁盘。</p>
+</blockquote>
+</li>
+<li><p>vm-page-size 32：指定swap文件中page的大小，默认为32bytes。</p>
+<blockquote>
+<p>Redis的swap文件分成了很多的page，一个对象可以保存在多个page上面，但一个page上不能被多个对象共享。</p>
+<p>vm-page-size是要根据存储的 数据大小来设定的,如果存储很多小对象，page大小最好设置为32或者64bytes；如果存储很大大对象，则可以使用更大的page，如果不 确定，就使用默认值</p>
+</blockquote>
+</li>
+<li><p>vm-pages 134217728：指定swap文件中的page数量，默认大小为 2<sup>27</sup>即134217728。</p>
+</li>
+<li><p>vm-max-threads 4：设置访问swap文件的线程数，默认值为4。</p>
+<blockquote>
+<p>最好不要超过机器的核数,如果设置为0,那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。</p>
+</blockquote>
+</li>
+<li><p>glueoutputbuf yes：设置在想客户端应答时，是否把较小的包合并为一个包发送，默认为开启。</p>
+</li>
+<li><p>hash-max-zipmap-entries 64：指定在超过一定的数量时，采用一种特殊的哈希算法</p>
+</li>
+<li><p>hash-max-zipmap-value 512：指定在最大的元素超过某一临界值时，采用一种特殊的哈希算法</p>
+</li>
+<li><p>activerehashing yes：指定是否激活重置哈希，默认为yes</p>
+</li>
+<li><p>include /path/to/local.conf ：指定包含其他的配置文件，可以在同一主机上多个redis实例之间使用同一份配置文件，同时各个实例也拥有自己特定的配置文件。</p>
+</li>
+</ol>
+<h2 id="Redis的数据类型"><a href="#Redis的数据类型" class="headerlink" title="Redis的数据类型"></a>Redis的数据类型</h2><p>Redis中有5种数据类型：</p>
+<ul>
+<li>String    字符串</li>
+<li>List        列表</li>
+<li>Hash        字典</li>
+<li>Set        集合</li>
+<li>Sorted Set    有序集合</li>
+</ul>
+<p>不同的数据类型，有不同的命令方式。</p>
+<h3 id="String-相关命令"><a href="#String-相关命令" class="headerlink" title="String 相关命令"></a>String 相关命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">set (key) (value)			设置key = value</span><br><span class="line">append (key) (value2)		在key对应的value尾部追加value2</span><br><span class="line">get	(key)					获取key对应的value</span><br><span class="line">incr (key)				将key对应的value加1</span><br><span class="line">incrby (key) (value1)		将key对应的value加上value1</span><br><span class="line">ttl (key)					获取key到期的剩余时间</span><br><span class="line">rename (key) (key_new)		对key重命名</span><br><span class="line"></span><br><span class="line">SET key value                   设置key=value</span><br><span class="line">GET key                         或者键key对应的值</span><br><span class="line">GETRANGE key start end          得到字符串的子字符串存放在一个键</span><br><span class="line">GETSET key value                设置键的字符串值，并返回旧值</span><br><span class="line">GETBIT key offset               返回存储在键位值的字符串值的偏移</span><br><span class="line">MGET key1 [key2..]              得到所有的给定键的值</span><br><span class="line">SETBIT key offset value         设置或清除该位在存储在键的字符串值偏移</span><br><span class="line">SETEX key seconds value         键到期时设置值</span><br><span class="line">SETNX key value                 设置键的值，只有当该键不存在</span><br><span class="line">SETRANGE key offset value       覆盖字符串的一部分从指定键的偏移</span><br><span class="line">STRLEN key                      得到存储在键的值的长度</span><br><span class="line">MSET key value [key value...]   设置多个键和多个值</span><br><span class="line">MSETNX key value [key value...] 设置多个键多个值，只有在当没有按键的存在时</span><br><span class="line">PSETEX key milliseconds value   设置键的毫秒值和到期时间</span><br><span class="line">INCR key                        增加键的整数值一次</span><br><span class="line">INCRBY key increment            由给定的数量递增键的整数值</span><br><span class="line">INCRBYFLOAT key increment       由给定的数量递增键的浮点值</span><br><span class="line">DECR key                        递减键一次的整数值</span><br><span class="line">DECRBY key decrement            由给定数目递减键的整数值</span><br><span class="line">APPEND key value                追加值到一个键</span><br><span class="line">DEL key                         如果存在删除键</span><br><span class="line">DUMP key                        返回存储在指定键的值的序列化版本</span><br><span class="line">EXISTS key                      此命令检查该键是否存在</span><br><span class="line">EXPIRE key seconds              指定键的过期时间</span><br><span class="line">EXPIREAT key timestamp          指定的键过期时间。在这里，时间是在Unix时间戳格式</span><br><span class="line">PEXPIRE key milliseconds        设置键以毫秒为单位到期</span><br><span class="line">PEXPIREAT key milliseconds-timestamp        设置键在Unix时间戳指定为毫秒到期</span><br><span class="line">KEYS pattern                    查找与指定模式匹配的所有键</span><br><span class="line">MOVE key db                     移动键到另一个数据库</span><br><span class="line">PERSIST key                     移除过期的键</span><br><span class="line">PTTL key                        以毫秒为单位获取剩余时间的到期键。</span><br><span class="line">TTL key                         获取键到期的剩余时间。</span><br><span class="line">RANDOMKEY                       从Redis返回随机键</span><br><span class="line">RENAME key newkey               更改键的名称</span><br><span class="line">RENAMENX key newkey             重命名键，如果新的键不存在</span><br><span class="line">TYPE key                        返回存储在键的数据类型的值。</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-列表"><a href="#List-列表" class="headerlink" title="List 列表"></a>List 列表</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">lpush (listkey) (value)			给listkey列表添加(一个或多个)元素（在前面添加）</span><br><span class="line">rpush (listkey) (value)			给listkey列表添加(一个或多个)元素(在后面添加)</span><br><span class="line">llen (listkey)					获取listkey的长度</span><br><span class="line">lrange (listkey) (start) (end)	从start位置至end位置获取其中的元素</span><br><span class="line"></span><br><span class="line">BLPOP key1 [key2 ] timeout 取出并获取列表中的第一个元素，或阻塞，直到有可用</span><br><span class="line">BRPOP key1 [key2 ] timeout 取出并获取列表中的最后一个元素，或阻塞，直到有可用</span><br><span class="line">BRPOPLPUSH source destination timeout 从列表中弹出一个值，它推到另一个列表并返回它;或阻塞，直到有可用</span><br><span class="line">LINDEX key index 从一个列表其索引获取对应的元素</span><br><span class="line">LINSERT key BEFORE|AFTER pivot value 在列表中的其他元素之后或之前插入一个元素</span><br><span class="line">LLEN key 获取列表的长度</span><br><span class="line">LPOP key 获取并取出列表中的第一个元素</span><br><span class="line">LPUSH key value1 [value2] 在前面加上一个或多个值的列表</span><br><span class="line">LPUSHX key value 在前面加上一个值列表，仅当列表中存在</span><br><span class="line">LRANGE key start stop 从一个列表获取各种元素</span><br><span class="line">LREM key count value 从列表中删除元素</span><br><span class="line">LSET key index value 在列表中的索引设置一个元素的值</span><br><span class="line">LTRIM key start stop 修剪列表到指定的范围内</span><br><span class="line">RPOP key 取出并获取列表中的最后一个元素</span><br><span class="line">RPOPLPUSH source destination 删除最后一个元素的列表，将其附加到另一个列表并返回它</span><br><span class="line">RPUSH key value1 [value2] 添加一个或多个值到列表</span><br><span class="line">RPUSHX key value 添加一个值列表，仅当列表中存在</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Hash字典，哈希表"><a href="#Hash字典，哈希表" class="headerlink" title="Hash字典，哈希表"></a>Hash字典，哈希表</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">hset person (key) (value)		设置person哈希表中的key键对应值为value</span><br><span class="line">hgetall person					显示person哈希表中所有的key和value</span><br><span class="line">hkeys person					显示person哈希表中所有的keys</span><br><span class="line">hvals person					</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HDEL key field[field...] 删除对象的一个或几个属性域，不存在的属性将被忽略</span><br><span class="line">HEXISTS key field 查看对象是否存在该属性域</span><br><span class="line">HGET key field 获取对象中该field属性域的值</span><br><span class="line">HGETALL key 获取对象的所有属性域和值</span><br><span class="line">HINCRBY key field value 将该对象中指定域的值增加给定的value，原子自增操作，只能是integer的属性值可以使用</span><br><span class="line">HINCRBYFLOAT key field increment 将该对象中指定域的值增加给定的浮点数</span><br><span class="line">HKEYS key 获取对象的所有属性字段</span><br><span class="line">HVALS key 获取对象的所有属性值</span><br><span class="line">HLEN key 获取对象的所有属性字段的总数</span><br><span class="line">HMGET key field[field...] 获取对象的一个或多个指定字段的值</span><br><span class="line">HSET key field value 设置对象指定字段的值</span><br><span class="line">HMSET key field value [field value ...] 同时设置对象中一个或多个字段的值</span><br><span class="line">HSETNX key field value 只在对象不存在指定的字段时才设置字段的值</span><br><span class="line">HSTRLEN key field 返回对象指定field的value的字符串长度，如果该对象或者field不存在，返回0.</span><br><span class="line">HSCAN key cursor [MATCH pattern] [COUNT count] 类似SCAN命令</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SADD key member [member ...] 	添加一个或者多个元素到集合(set)里</span><br><span class="line">SCARD key 						获取集合里面的元素数量</span><br><span class="line">SDIFF key [key ...] 			获得队列不存在的元素</span><br><span class="line">SDIFFSTORE destination key [key ...] 获得队列不存在的元素，并存储在一个关键的结果集</span><br><span class="line">SINTER key [key ...] 			获得两个集合的交集</span><br><span class="line">SINTERSTORE destination key [key ...] 获得两个集合的交集，并存储在一个集合中</span><br><span class="line">SISMEMBER key member 			确定一个给定的值是一个集合的成员</span><br><span class="line">SMEMBERS key 					获取集合里面的所有key</span><br><span class="line">SMOVE source destination member 移动集合里面的一个key到另一个集合</span><br><span class="line">SPOP key [count] 				获取并删除一个集合里面的元素</span><br><span class="line">SRANDMEMBER key [count] 		从集合里面随机获取一个元素</span><br><span class="line">SREM key member [member ...] 	从集合里删除一个或多个元素，不存在的元素会被忽略</span><br><span class="line">SUNION key [key ...] 			添加多个set元素</span><br><span class="line">SUNIONSTORE destination key [key ...] 合并set元素，并将结果存入新的set里面</span><br><span class="line">SSCAN key cursor [MATCH pattern] [COUNT count] 迭代set里面的元素</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sorted-Set有序集合"><a href="#Sorted-Set有序集合" class="headerlink" title="Sorted Set有序集合"></a>Sorted Set有序集合</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">ZADD key score1 member1 [score2 member2] </span><br><span class="line">							添加一个或多个成员到有序集合，或者如果它已经存在更新其分数</span><br><span class="line">ZCARD key 					得到的有序集合成员的数量</span><br><span class="line">ZCOUNT key min max 			计算一个有序集合成员与给定值范围内的分数</span><br><span class="line">ZINCRBY key increment member 在有序集合增加成员的分数</span><br><span class="line">ZINTERSTORE destination numkeys key [key ...] </span><br><span class="line">							多重交叉排序集合，并存储生成一个新的键有序集合。</span><br><span class="line">ZLEXCOUNT key min max 		计算一个给定的字典范围之间的有序集合成员的数量</span><br><span class="line">ZRANGE key start stop [WITHSCORES] 由索引返回一个成员范围的有序集合（从低到高）</span><br><span class="line">ZRANGEBYLEX key min max [LIMIT offset count]返回一个成员范围的有序集合（由字典范围）</span><br><span class="line">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT] </span><br><span class="line">							返回有序集key中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员，有序集成员按 score 值递增(从小到大)次序排列</span><br><span class="line">ZRANK key member 			确定成员的索引中有序集合</span><br><span class="line">ZREM key member [member ...] 从有序集合中删除一个或多个成员，不存在的成员将被忽略</span><br><span class="line">ZREMRANGEBYLEX key min max 	删除所有成员在给定的字典范围之间的有序集合</span><br><span class="line">ZREMRANGEBYRANK key start stop 在给定的索引之内删除所有成员的有序集合</span><br><span class="line">ZREMRANGEBYSCORE key min max 在给定的分数之内删除所有成员的有序集合</span><br><span class="line">ZREVRANGE key start stop [WITHSCORES] </span><br><span class="line">							返回一个成员范围的有序集合，通过索引，以分数排序，从高分到低分</span><br><span class="line">ZREVRANGEBYSCORE key max min [WITHSCORES] </span><br><span class="line">							返回一个成员范围的有序集合，以socre排序从高到低</span><br><span class="line">ZREVRANK key member 		确定一个有序集合成员的索引，以分数排序，从高分到低分</span><br><span class="line">ZSCORE key member 			获取给定成员相关联的分数在一个有序集合</span><br><span class="line">ZUNIONSTORE destination numkeys key [key ...] </span><br><span class="line">							添加多个集排序，所得排序集合存储在一个新的键</span><br><span class="line">ZSCAN key cursor [MATCH pattern] [COUNT count] 增量迭代排序元素集和相关的分数</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/01/16/Redis%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/01/16/Java/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Java内存模型
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/16/http%E5%90%84%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">http各个版本的区别</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'gtXNe43HVDH72a7XMn9zNgz8-gzGzoHsz',
+        app_key: 'Df8WdcqcC2DCWL1pfcWb4QfN',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '既然都来了，便留个爪印呗~_(¦3」∠)_',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        LinPaiBin
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="滨书"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/12/02/AboutMe">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['人生如棋，吾愿为卒','愿你一生努力，一生被爱','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

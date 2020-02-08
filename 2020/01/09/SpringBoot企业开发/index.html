@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="林湃滨的个人博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    SpringBoot企业开发 |  滨书
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="滨书" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-SpringBoot企业开发" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  SpringBoot企业开发
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/09/SpringBoot%E4%BC%81%E4%B8%9A%E5%BC%80%E5%8F%91/" class="article-date">
+  <time datetime="2020-01-09T11:08:54.000Z" itemprop="datePublished">2020-01-09</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.9k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">21分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="SpringBoot企业开发"><a href="#SpringBoot企业开发" class="headerlink" title="SpringBoot企业开发"></a>SpringBoot企业开发</h1><p>本文主要介绍在Spring boot企业开发中一些常用的功能：邮件发送、定时任务、批处理、Swagger2和数据校验等，这些功能都有着非常广泛的使用场景，如用户注册、修改密码、定时备份、接口文档等。除了Swagger2外，其他功能在Springboot中都提供了相关的Starter，简化了开发过程，明显提高了开发效率。</p>
+<h2 id="一、邮件发送"><a href="#一、邮件发送" class="headerlink" title="一、邮件发送"></a>一、邮件发送</h2><p>qq邮箱配置验证码：略</p>
+<ol>
+<li><p>环境搭建</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置application.yml，如邮件服务器的地址、端口（465或587）、用户账号和密码以及默认编码、SSL连接配置等信息（application.properties配置类似）:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">mail:</span></span><br><span class="line">		<span class="attr">host:</span> <span class="string">smtp.qq.com</span></span><br><span class="line">		<span class="attr">port:</span> <span class="number">465</span></span><br><span class="line">		<span class="attr">username:</span> <span class="string">xxx@qq.com</span></span><br><span class="line">		<span class="attr">password:</span> <span class="comment">#填写通过邮箱申请到的验证码</span></span><br><span class="line">		<span class="attr">default-encoding:</span> <span class="string">UTF-8</span></span><br><span class="line">		<span class="attr">properties:</span> </span><br><span class="line">			<span class="attr">mail:</span> </span><br><span class="line">				<span class="attr">debug:</span> <span class="literal">true</span></span><br><span class="line">				<span class="attr">smtp:</span> </span><br><span class="line">					<span class="attr">socketFactory:</span></span><br><span class="line">						<span class="attr">class:</span> <span class="string">javax.net.ssl.SSLSocketFactory</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>发送简单邮件</p>
+<p>创建MailService封装邮件的发送：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MailService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    JavaMailSender javaMailSender;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendSimpleMail</span><span class="params">(String from,String to,String cc,String subject,String content)</span></span>&#123;</span><br><span class="line">        SimpleMailMessage simpMsg = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        simpMsg.setFrom(from);</span><br><span class="line">        simpMsg.setTo(to);</span><br><span class="line">        simpMsg.setCc(cc);</span><br><span class="line">        simpMsg.setSubject(subject);</span><br><span class="line">        simpMsg.setText(content);</span><br><span class="line">        javaMailSender.send(simpMsg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>   测试方法：</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">@<span class="title">Spring</span> <span class="title">BootTest</span></span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">SendmailApplicationTests</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MailService mailService;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendSimpleMail</span><span class="params">()</span></span>&#123;</span><br><span class="line">        mailService.sendSimpleMail(<span class="string">"#发件人邮箱#"</span>,</span><br><span class="line">                                  <span class="string">"#收件人邮箱#"</span>,</span><br><span class="line">                                  <span class="string">"#抄送邮箱#"</span>,</span><br><span class="line">                                  <span class="string">"#邮件主题#"</span>,</span><br><span class="line">                                  <span class="string">"#邮件内容#"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li><p>发送带有附件的邮件</p>
+<p>要发送带有附件的邮件，只需要通过调用Attachment方法即可添加附件，多次调用该方法即可添加多个附件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAttachFileMail</span><span class="params">(String from,String to,String subject,String content,File file)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        MimeMesage message = javaMailSender.createMimeMessage();</span><br><span class="line">        MimeMessageHelper helper = <span class="keyword">new</span> MimeMessageHelper(message,<span class="keyword">true</span>);</span><br><span class="line">        helper.setFrom(from);</span><br><span class="line">        helper.setTo(to);</span><br><span class="line">        helper.setSubject(subject);</span><br><span class="line">        helper.setText(content);</span><br><span class="line">        helper.setAttachment(file.getName(),file);</span><br><span class="line">        javaMailSender.send(message);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(MessageingException e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发送带图片资源的邮件</p>
+<p>可以利用FileSystemResource实现这一功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMailWithImg</span><span class="params">(String from,String to,String subject,</span></span></span><br><span class="line"><span class="function"><span class="params">                           String content,String[] srcPath,</span></span></span><br><span class="line"><span class="function"><span class="params">                            String[] resIds)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(srcPath.length != resIds.length)&#123;</span><br><span class="line">        System.out.println(<span class="string">"Send Fail"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        MimeMessage message = javaMailSender.createMimeMessage();</span><br><span class="line">        MimeMessageHelper helper = <span class="keyword">new</span> MimeMessageHelper(message,<span class="keyword">true</span>);</span><br><span class="line">        helper.setFrom(from);</span><br><span class="line">        helper.setTo(to);</span><br><span class="line">        helper.setSubject(subject);</span><br><span class="line">        helper.setText(content,<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;srPath.length;i++)&#123;</span><br><span class="line">            FileSystemResource res = <span class="keyword">new</span> FileSystemResource(<span class="keyword">new</span> File(srcPath[i]));</span><br><span class="line">            helper.addInline(resIds[i],res);</span><br><span class="line">        &#125;</span><br><span class="line">        javaMailSender.send(message);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(MessageingException e)&#123;</span><br><span class="line">        System.out.println(<span class="string">"Send Fail"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发送邮件时分别传入图片资源路径和资源id，通过FileSystemResource构造静态资源，然后addInline方法将资源加入邮件对象中。</p>
+</li>
+<li></li>
+</ol>
+<h2 id="二、定时任务"><a href="#二、定时任务" class="headerlink" title="二、定时任务"></a>二、定时任务</h2><p>定时任务是企业开发的常见功能之一，简单的定时任务可以直接通过Spring中的@Scheduled注解来实现，复杂的定时任务可以通过集成Quartz来实现。</p>
+<h3 id="1、-Scheduled"><a href="#1、-Scheduled" class="headerlink" title="1、@Scheduled"></a>1、@Scheduled</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>之后在项目启动类中添加@EnableScheduling注解开启定时任务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledApplication</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        SpringApplication.run(ScheduledApplication<span class="class">.<span class="keyword">class</span>,<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后通过@Scheduled注解进行配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySchedule</span></span>&#123;</span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedDelay = <span class="number">1000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fixedDelay</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"fixedDelay:"</span>+<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedRate = <span class="number">2000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fixedRate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"fixedRate:"</span>+<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Scheduled</span>(initialDelay = <span class="number">1000</span>,fixedRate = <span class="number">2000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialDelay</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"initialDelay:"</span>+<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0 * * * * ?"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cron</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"cron:"</span>+<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码解释：</p>
+<ul>
+<li>通过@Scheduled注解标注一个定时任务，其中fixedDelay = 1000表示在当前任务执行结束后1秒开启另一个任务，fixedRate = 2000表示在当前任务开始执行2秒后开启另一个定时任务，initialDelay = 1000表示首次执行的延迟时间</li>
+<li>在@Scheduled注解中也可以使用cron表达式，cron=”0 * * * * ?”表示该定时任务每分钟执行一次。</li>
+</ul>
+<h3 id="2、Quartz"><a href="#2、Quartz" class="headerlink" title="2、Quartz"></a>2、Quartz</h3><p>Quartz是一个功能丰富的开源作业调度库，使用Quartz可以创建简单或复杂的执行计划，他支持数据库、集群、插件以及邮件，且支持cron表达式，具有极高的灵活性。</p>
+<h2 id="三、批处理"><a href="#三、批处理" class="headerlink" title="三、批处理"></a>三、批处理</h2><p>Spring Batch 是一个开源的、全面的、轻量级的批处理框架，通过Spring Batch可以实现强大的批处理应用程序的开发。Spring Batch提供记录/跟踪、事务管理、作业处理统计、作业重启以及资源管理等功能。Spring Batch结合定时任务可以发挥更大的作用。</p>
+<p>Spring Batch提供了ItemReader、ItemProcessor和ItemWriter来完成数据的读取、处理以及写出操作，并且可以将批处理的执行状态持久化到数据库中。</p>
+<h3 id="在Spring-boot中整合运用SpringBatch"><a href="#在Spring-boot中整合运用SpringBatch" class="headerlink" title="在Spring boot中整合运用SpringBatch"></a>在Spring boot中整合运用SpringBatch</h3><p>情景：</p>
+<blockquote>
+<p> 现在有一个data.csv文件，文件中保存了4条用户数据，通过批处理框架读取data.csv，将之插入数据表中。</p>
+</blockquote>
+<ol>
+<li><p>首先创建一个Spring Boot Web工程，并添加spring-boot-starter-batch以来以及数据库相关依赖，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-batch<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>在application.yml中配置数据库基本信息（application.properties同理）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">datasource:</span></span><br><span class="line">		<span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">		<span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">		<span class="attr">password:</span> <span class="string">admin</span></span><br><span class="line">		<span class="attr">url:</span> <span class="string">jdbc:mysql:///batch</span></span><br><span class="line">		<span class="attr">schema:</span> <span class="string">classpath:/org/springframework/batch/core/schema-mysql.sql</span></span><br><span class="line">	<span class="attr">batch:</span></span><br><span class="line">		<span class="attr">initialize-schema:</span> <span class="string">always</span></span><br><span class="line">		<span class="attr">job:</span></span><br><span class="line">			<span class="attr">enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>type、username、password、url配置是数据的基本配置，此处不赘述；</li>
+<li>schema：配置项目启动时创建数据表的SQL脚本，该脚本由Spring Batch提供；</li>
+<li>initialize-schema：表示在项目启动时执行建表SQL</li>
+<li>spring.batch.job.enabled：禁止Spring batch自动执行。在默认的情况下，项目启动时就行执行配置好的批处理操作；而添加了此处的配置之后，便不会自动执行，需要用户手动触发执行，例如发送一个请求，在Controller的接口中出发批处理执行操作。</li>
+</ul>
+</li>
+<li><p>之后在项目启动类中，添加@EnableBatchProcessing注解开启Spring Batch支持，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableBatchProcessing</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BatchApplication</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        SpringApplication.run(BatchApplication<span class="class">.<span class="keyword">class</span>,<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>接下来对批处理进行配置，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CsvBatchJobConfig</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    JobBuilderFactory jobBuilderFactory;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    StepBuilderFactory stepBuilderFactory;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    DataSource dataSource;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@StepScope</span></span><br><span class="line">    <span class="function">FlatFileItemReader&lt;User&gt; <span class="title">itemReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        FlatFileItemReader&lt;User&gt; reader = <span class="keyword">new</span> FlatFileItemReader&lt;&gt;();</span><br><span class="line">        reader.setLinesToSkip(<span class="number">1</span>);</span><br><span class="line">        reader.setResource(<span class="keyword">new</span> ClassPathResource(<span class="string">"data.csv"</span>));</span><br><span class="line">        reader.setLineMapper(<span class="keyword">new</span> DefaultLineMapper&lt;User&gt;(&#123;&#123;</span><br><span class="line">            setLineTokenizer(<span class="keyword">new</span> DelimitedLineTokenizer()&#123;&#123;</span><br><span class="line">                setNames(<span class="string">"id"</span>,<span class="string">"username"</span>,<span class="string">"address"</span>,<span class="string">"gender"</span>);</span><br><span class="line">                setDelimiter(<span class="string">"\t"</span>);</span><br><span class="line">            &#125;&#125;);</span><br><span class="line">            setFieldSetMapper(<span class="keyword">new</span> BeanWrapperFieldSetMapper&lt;User&gt;()&#123;&#123;</span><br><span class="line">                setTargetType(User<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            &#125;&#125;)</span><br><span class="line">        &#125;&#125;));</span><br><span class="line">        <span class="keyword">return</span> reader;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">JdbcBatchItemWriter <span class="title">jdbcBatchItemWriter</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcBatchItemWriter writer = <span class="keyword">new</span> JdbcBatchItemWriter();</span><br><span class="line">        writer.setDataSource(dataSource);</span><br><span class="line">        writer.setSql(<span class="string">"insert into user(id,username,address,gender) "</span>+<span class="string">"value(:id,:username,:address,:gender)"</span>);</span><br><span class="line">        writer.setItemSqlParameterSourceProvider(</span><br><span class="line">        	<span class="keyword">new</span> BeanPropertyItemSqlParameterSourceProvider&lt;&gt;());</span><br><span class="line">        <span class="keyword">return</span> writer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">Step <span class="title">csvStep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stepBuilderFactory.get(<span class="string">"csvStep"</span>)</span><br><span class="line">            .&lt;User,User&gt;chunk(<span class="number">2</span>)</span><br><span class="line">            .reader(itemReader())</span><br><span class="line">            .writer(jdbcBatchItemWriter())</span><br><span class="line">            .build();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">Job <span class="title">csvJob</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jobBuilderFactory.get(<span class="string">"csvJob"</span>)</span><br><span class="line">            .start(csvStep())</span><br><span class="line">            .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码含义：</p>
+<ol>
+<li><p>创建CsvBatchJobConfig进行Spring Batch配置，同时注入JobBuilderFactory，StepBuilderFactory 以及 DataSource备用，其中JobBuilderFactory将用来构建Job，StepBuilderFactory用来构建Step，DataSource则用来支持持久化操作，这里持久化的方案是Spring-Jdbc；</p>
+</li>
+<li><p>配置一个ItemReader，Spring Batch提供了一些常用的ItemReader，例如JdbcPagingItemReader用来读取数据库中的数据，StaxEventItemReader用来读取XML数据，本案例中的FlatFileReader则是一个加载普通文件的ItemReader，在FlatFileItemReader的配置过程中，</p>
+</li>
+<li><p>配置ItemWriter，即数据的写出逻辑，SpringBatch也提供了多个ItemWriter的实现。常见的如：</p>
+<ul>
+<li>FlatFileItemWriter，表示将数据写出为一个普通文件；</li>
+<li>StaxEventItemWriter，表示将数据写出为XML</li>
+</ul>
+<p>另外，还有针对不同数据库提供的写出操作支持类，如MongoItemWriter、JpaItemWriter、Neo4jItemWriter以及HibernateItemWriter等，本案例使用的JdbcBatchItemWriter则是通过JDBC将数据写出到一个关系型数据库中。</p>
+<blockquote>
+<p>JdbcBatchItemWriter主要配置数据以及数据插入SQL，注意占位符的写法是”:属性名”，最后通过BeanPropertyItemSqlParameterSourceProvider实例将实体类的属性和SQL中的占位符一一映射。</p>
+</blockquote>
+</li>
+<li><p>配置一个Step,Step通过stepBuilderFactory进行配置,首先通过get获取一个StepBuilder,get方法的参数便是该Step的name，之后调用chunk方法的参数2，表示没读取到两条数据就执行一次write操作，最后分别配置reader和writer。</p>
+</li>
+<li><p>配置一个Job，通过jobBuilderFactory构建一个Job，get方法的参数为Job的name，然后配置该Job的Step即可。</p>
+<blockquote>
+<p>在这里涉及到一个User实体类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>data.csv的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id username address gender</span><br><span class="line">1 张三 深圳 男</span><br><span class="line">2 李四 广州 男</span><br><span class="line">3 王五 广州 男</span><br><span class="line">4 赵六 北京 女</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>最后，创建Controller，当用户发起一个请求时，触发批处理，demo如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    JobLauncher jobLauncher;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    Job job;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            jobLauncher.run(job,<span class="keyword">null</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JobLauncher由框架提供，Job是刚配置的，通过调用JobLauncher中的run方法启动批处理。</p>
+</li>
+</ol>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ol>
+<li>根据User实体类在数据库中创建一个user表；</li>
+<li>启动该Springboot项目，访问localhost:8080/hello；</li>
+<li>访问成功后，Batch库自动创建处多个批处理相关的表，用来处理批处理的执行状态，同时data.csv中的数据也成功地出入到user表中。</li>
+</ol>
+<h2 id="四、Swagger2"><a href="#四、Swagger2" class="headerlink" title="四、Swagger2"></a>四、Swagger2</h2><p>在团队开发过程中，前后端分离的项目一般通过构建一份RESTful API文档来描述所有的接口信息，但是这种方法有比较大的弊端：</p>
+<ul>
+<li>接口太多，编写RESTful API文档工作量太大，因为RESTful API文档不仅仅要包含接口的基本信息，如接口地址，接口请求参数以及接口返回值等等，还需要包含HTTP请求类型，HTTP请求头，请求参数类型，返回值类型，所需权限等等。</li>
+<li>维护不方便。当接口发生变化时，就需要修改文档保证文档信息的实时性。</li>
+<li>接口测试不方便，一般只能借助第三方工具（如Postman）进行测试。</li>
+</ul>
+<p>Swagger2是一个开源软件框架啊，可以帮助开发者设计、构建、记录和使用RESTful Web服务，该框架将代码和文档融为一体，可以比较完美地解决以上描述的问题，使开发人员将大部分精力集中到业务中，而不是分散精力在整理繁杂、琐碎的文档中。</p>
+<h3 id="Springboot整合Swagger2"><a href="#Springboot整合Swagger2" class="headerlink" title="Springboot整合Swagger2"></a>Springboot整合Swagger2</h3><p>配置pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>接下来配置Swagger2的配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span></span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">Docket <span class="title">docket</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">            .select()</span><br><span class="line">            .apis(RequestHandlerSelectors.basePackage(<span class="string">"org.sang.controller"</span>))</span><br><span class="line">            .paths(PathSelectors.any())</span><br><span class="line">            .build().apiInfo(<span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">                             .description(<span class="string">"接口测试文档"</span>)</span><br><span class="line">                             .contact(<span class="keyword">new</span> Contact(<span class="string">"DevinLPB"</span>,<span class="string">"lpbdevin.xyz"</span>,<span class="string">"252834399@qq.com"</span>))</span><br><span class="line">                            .version(<span class="string">"v1.0"</span>)</span><br><span class="line">                            .title(<span class="string">"API测试文档"</span>)</span><br><span class="line">                            .license(<span class="string">"Apache2.0"</span>)</span><br><span class="line">                            .licenseUrl(<span class="string">"http://www.apache.org/license/LICENSE-2.0"</span>)</span><br><span class="line">                            .build());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码解析：</p>
+<ul>
+<li>通过@EnableSwagger2注解启动Swagger2，最主要的是配置一个Docket</li>
+<li>通过apis方法配置要扫描的controller位置，通过paths方法配置路径</li>
+<li>在apiInfo中构建文档的基本信息，如描述，联系人信息，版本，标题等等。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Api</span>(tags = <span class="string">"用户数据接口"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span></span>&#123;</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"查询用户"</span>,notes=<span class="string">"根据id查询用户"</span>)</span><br><span class="line">    <span class="meta">@ApiTmplicitParam</span>(paramType=<span class="string">"path"</span>,name=<span class="string">"id"</span>,value=<span class="string">"用户id"</span>,required=<span class="keyword">true</span>)</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/user/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUserById</span><span class="params">(@PathVariable Integer id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"/user/"</span>+id;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ApiResponses</span>(&#123;</span><br><span class="line">        <span class="meta">@ApiResponse</span>(code=<span class="number">200</span>,message=<span class="string">"删除成功！"</span>),</span><br><span class="line">        <span class="meta">@ApiResponse</span>(code=<span class="number">500</span>,message=<span class="string">"删除失败！"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"删除用户"</span>，notes=<span class="string">"通过id删除用户"</span>)</span><br><span class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/user/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">deleteUserById</span><span class="params">(@PathVariable Integer id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"添加用户"</span>,notes=<span class="string">"添加一个用户，传入用户名和地址"</span>)</span><br><span class="line">    <span class="meta">@ApiImplicitParams</span>(&#123;</span><br><span class="line">        <span class="meta">@ApiImplicitParam</span>(paramType=<span class="string">"query"</span>,name=<span class="string">"username"</span>,value=<span class="string">"用户名"</span>,required=<span class="keyword">true</span>,defaultValue=<span class="string">"devin"</span>)</span><br><span class="line">        <span class="meta">@ApiImplicitParam</span>(paramType=<span class="string">"query"</span>,name=<span class="string">"address"</span>,value=<span class="string">"用户地址"</span>,required=<span class="keyword">true</span>,defaultValue=<span class="string">"shenzhen"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addUser</span><span class="params">(@RequestParam String username,@RequestParam String address)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username+<span class="string">":"</span>+address;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"修改用户"</span>,notes=<span class="string">"修改用户，传入用户信息"</span>)</span><br><span class="line">    <span class="meta">@PutMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">updateUser</span><span class="params">(@RequestBody User user)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> user.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/ignore"</span>)</span><br><span class="line">    <span class="meta">@ApiIgnore</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ingoreMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ApiModel</span>(value=<span class="string">"用户实体类"</span>,description=<span class="string">"用户信息描述类"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value=<span class="string">"用户名"</span>)</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value=<span class="string">"用户地址"</span>)</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">//此处省略getter/setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码解析：</p>
+<ul>
+<li>@Api注解在类上使用，用于描述整个Controller信息</li>
+<li>@ApiOperation注解用在开发方法上，用来描述一个方法的基本信息，value是对方法作用的一个简述，notes用来备注该方法的详细作用。</li>
+<li>@ApiImplicitParam注解用在方法上，用来描述方法的参数，paramType是指对方法参数的类型，可选值有path(参数获取方式@PathVariable)、query(参数获取方式@RequestParam)、header(参数获取方式@RequestHeader)、body和form；<ul>
+<li>name代表参数名称，和参数变量对应；</li>
+<li>value是参数的描述信息；</li>
+<li>required表示该字段是否必填；</li>
+<li>defaultValue表示该字段的默认值；</li>
+</ul>
+</li>
+<li>@ApiResponse注解是对响应结果的描述，code表示响应码，message表示相应的描述信息，若有多个@ApiResponse，则放在一个@ApiResponses中。</li>
+<li>在updateUser方法中，使用@RequestBody注解来接收数据，此时可以通过@ApiMode注解和@ApiModelProperty注解配置User对象的描述信息。</li>
+<li>@ApiIgnore注解表示不对某个接口生成文档。</li>
+</ul>
+<h3 id="测试Swagger2"><a href="#测试Swagger2" class="headerlink" title="测试Swagger2"></a>测试Swagger2</h3><p>启动SpringBoot项目，在浏览器中输入localhost:8080/swagger-ui.html，如果可以正常看到接口文档界面，表示Springboot成功整合Swagger2，恭喜啦~</p>
+<h2 id="五、数据校验"><a href="#五、数据校验" class="headerlink" title="五、数据校验"></a>五、数据校验</h2><p>数据校验是开发过程中的一个常见的环节，一般来说，为了提高系统运行效率，都会前端进行数据校验，但在后端同样需要进行数据校验，因为用户还是有可能在获取数据接口后手动传入非法数据，所以后端一样需要进行数据校验。</p>
+<p>Springboot也对此有提供了相关的自动化配置解决方案。</p>
+<h3 id="一般校验"><a href="#一般校验" class="headerlink" title="一般校验"></a>一般校验</h3><p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>项目创建成功后，在LocalValidatorFactoryBean类中，默认的ValidationMessageSource（校验出错时的提示文件）是resource目录下的ValidationMessage.properties文件，故需要在resource目录下创建ValidationMessages.properties文件，内容如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">user.name.size</span>=<span class="string">用户名长度介于5到10个字符之间</span></span><br><span class="line"><span class="meta">user.address.notnull</span>=<span class="string">用户地址不能为空</span></span><br><span class="line"><span class="meta">user.age.size</span>=<span class="string">年龄输入不正确</span></span><br><span class="line"><span class="meta">user.email.notnull</span>=<span class="string">邮箱不能为空</span></span><br><span class="line"><span class="meta">user.email.pattern</span>=<span class="string">邮箱格式不正确</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来创建User类，配置数据校验，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="meta">@Size</span>(min=<span class="number">5</span>,max=<span class="number">10</span>,message=<span class="string">"&#123;user.name.size&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@NotNull</span>(message=<span class="string">"&#123;user.address.notnull&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="meta">@DecimalMin</span>(value=<span class="string">"1"</span>,message=<span class="string">"user.age.size"</span>)</span><br><span class="line">    <span class="meta">@DecimalMax</span>(value=<span class="string">"200"</span>,message=<span class="string">"user.age.size"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@Email</span>(message=<span class="string">"&#123;user.email.pattern&#125;"</span>)</span><br><span class="line">    <span class="meta">@NotNull</span>(message=<span class="string">"&#123;user.email.notnull&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="comment">//setter，getter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码说明：</p>
+<ul>
+<li>@Size表示一个字符串的长度或者一个集合的大小，必须在某一个范围内，min参数表示范围的下限，max参数表示范围的上限；message表示校验失败时候的提示信息。</li>
+<li>@NotNull注解表示该字段不能为空</li>
+<li>@DecimalMin注解表示对应属性值的下限，@DecimalMax注解表示对应属性值的上限。</li>
+<li>@Email注解表示对应属性格式是一个Email</li>
+</ul>
+<p>以后创建UserController，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span></span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">addUser</span><span class="params">(@Validated User user,BindingResult result)</span></span>&#123;</span><br><span class="line">        List&lt;String&gt; errors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(result.hasErrors())&#123;</span><br><span class="line">            List&lt;ObjectError&gt; allErrors = result.getAllErrors();</span><br><span class="line">            <span class="keyword">for</span>(ObjectError error:allErrors)&#123;</span><br><span class="line">                errors.add(error.getDefaultMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> errors;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码说明：</p>
+<ul>
+<li>User参数添加@Validated注解，表示需要对该参数做校验，紧接着BindingResult参数表示在校验出错时保存的出错信息。</li>
+<li>若BindingResult中的hasErrors方法返回true，表示有错误信息，此时遍历错误信息，并将其返回到前端。</li>
+</ul>
+<h3 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h3><p>在实际开发中，某一个实体类可能定义了许多的校验规则，但是在某一次业务处理中，并不需要那么多的校验规则，此时可以使用分组检验。</p>
+<ol>
+<li><p>创建两个分组接口，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ValidationGroup1</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ValidationGroup2</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>在实体类中添加分组信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="meta">@Size</span>(min=<span class="number">5</span>,max=<span class="number">10</span>,message=<span class="string">"&#123;user.name.size&#125;"</span>,groups=ValidationGroup1<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">String</span> <span class="title">name</span></span>;</span><br><span class="line">    <span class="meta">@NotNull</span>(message=<span class="string">"&#123;user.address.notnull&#125;"</span>,groups=ValidationGroup2<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">String</span> <span class="title">address</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@DecimalMin</span>(value=<span class="string">"1"</span>,message=<span class="string">"&#123;user.age.size&#125;"</span>)</span><br><span class="line">    <span class="meta">@DecimalMin</span>(value=<span class="string">"200"</span>,message=<span class="string">"&#123;user.age.size&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Email</span>(message=<span class="string">"&#123;user.email.pattern&#125;"</span>)</span><br><span class="line">    <span class="meta">@NotNull</span>(message=<span class="string">"&#123;user.email.notnull&#125;"</span>,groups=&#123;ValidationGroup1<span class="class">.<span class="keyword">class</span>,<span class="title">ValidationGroup2</span>.<span class="title">class</span>&#125;)</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">String</span> <span class="title">email</span></span>;</span><br><span class="line">    <span class="comment">//省略getter/setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在部分注解中添加了groups属性，表示该校验规则所属的分组。</p>
+</li>
+<li><p>在@Validated注解中指定校验分组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span></span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">addUser</span><span class="params">(@Validated(ValidationGroup2.class)</span> User user,BindingResult result)</span>&#123;</span><br><span class="line">        List&lt;String&gt; errors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(result.hasErrors())&#123;</span><br><span class="line">            List&lt;ObjectError&gt; allErrors = result.getAllErrors();</span><br><span class="line">            <span class="keyword">for</span>(ObjectError error:allErrors)&#123;</span><br><span class="line">                errors.add(error.getDefaultMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> errors;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例代码中，@Validated(ValidationGroup2.class)表示：这里的校验使用ValidationGroup2分组的校验规则（即对User只校验邮箱地址是否为空，用户地址是否为空）</p>
+</li>
+<li><p>校验注解</p>
+<p>常见的校验注解如下：</p>
+<table>
+<thead>
+<tr>
+<th>校验注解</th>
+<th>注解的元素类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AssertFalse</td>
+<td>Boolean</td>
+<td>被注解的元素值必须为false</td>
+</tr>
+<tr>
+<td>AssertTrue</td>
+<td>Boolean</td>
+<td>被注解的元素值必须为true</td>
+</tr>
+<tr>
+<td>DecimalMax</td>
+<td>BigDecimal,BigInteger,CharSequence<br/>,byte,short,int,long</td>
+<td>被注解的元素值小于或等于该注解中的value值</td>
+</tr>
+<tr>
+<td>DecimalMin</td>
+<td>BigDecimal,BigInteger,CharSequence<br>,byte,short,int,long</td>
+<td>被注解的元素值大于或等于该注解中的value值</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>BigDecimal,BigInteger,byte,short,int,long</td>
+<td>被注解的元素值小于或等于该注解中的value值</td>
+</tr>
+<tr>
+<td>Min</td>
+<td>BigDecimal,BigInteger,byte,short,int,long</td>
+<td>被注解的元素值大于或等于该注解中的value值</td>
+</tr>
+<tr>
+<td>Digits</td>
+<td>BigDecimal,BigInteger,CharSequence,byte<br/>,short,int,long</td>
+<td>被注解的元素必须是一个数字、其值必须在可以接收的范围内（整数位数和小数位数在指定范围内）</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>CharSequence</td>
+<td>被注解的元素值必须是Email格式</td>
+</tr>
+<tr>
+<td>Future</td>
+<td>java.util.Date,java.util.Calendar,java.time下的时间类</td>
+<td>被注解的元素值必须是一个未来的日期</td>
+</tr>
+<tr>
+<td>Past</td>
+<td>java.util.Date,java.util.Calendar,java.time下的时间类</td>
+<td>被注解的元素值必须是一个过去的日期</td>
+</tr>
+<tr>
+<td>PastOrPresent</td>
+<td>java.util.Date,java.util.Calendar,java.time下的时间类</td>
+<td>被注解的元素值必须是一个过去的日期或当前日期</td>
+</tr>
+<tr>
+<td>FutureOrPresent</td>
+<td>java.util.Date,java.util.Calendar,java.time下的时间类</td>
+<td>被注解的元素值必须是一个未来的日期或当前日期</td>
+</tr>
+<tr>
+<td>Negative</td>
+<td>BigDecimal,BigInteger,byte,short,int,long</td>
+<td>被注解的元素必须是负数</td>
+</tr>
+<tr>
+<td>NegativeOrZero</td>
+<td>BigDecimal,BigInteger,byte,short,int,long</td>
+<td>被注解的元素必须是负数或0</td>
+</tr>
+<tr>
+<td>Positive</td>
+<td>BigDecimal,BigInteger,byte,short,int,long</td>
+<td>被注解的元素必须是正数</td>
+</tr>
+<tr>
+<td>PositiveOrZero</td>
+<td>BigDecimal,BigInteger,byte,short,int,long</td>
+<td>被注解的元素必须是正数或0</td>
+</tr>
+<tr>
+<td>NotBlank</td>
+<td>CharSequence</td>
+<td>被注解的元素必须不为null且至少有一个非空白的字符</td>
+</tr>
+<tr>
+<td>NotEmpty</td>
+<td>CharSequence,Collection,Map,Array</td>
+<td>被注解的字符串不为null或空字符串，被注解的集合或者数组不为空。</td>
+</tr>
+<tr>
+<td>NotNull</td>
+<td>任意类型</td>
+<td>被注解的元素不为null</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>任意类型</td>
+<td>被注解的元素为null</td>
+</tr>
+<tr>
+<td>Pattern</td>
+<td>CharSequence</td>
+<td>被注解的元素必须符合指定的正则表达式</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>CharSequence,Collection,Map,Array</td>
+<td>被注解的字符串长度、集合或者数组大小必须在指定范围内</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>NotBlank</strong>与<strong>NotEmpty</strong>对比：一个空格的字符串在@NotBlank中验证不会通过，而其在@NotEmpty验证是可以通过的</p>
+</blockquote>
+</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/01/09/SpringBoot%E4%BC%81%E4%B8%9A%E5%BC%80%E5%8F%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/01/12/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            负载均衡算法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/09/Java/Keytool%E7%94%9F%E6%88%90Https%E8%AF%81%E4%B9%A6/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Keytool生成Https证书</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'gtXNe43HVDH72a7XMn9zNgz8-gzGzoHsz',
+        app_key: 'Df8WdcqcC2DCWL1pfcWb4QfN',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '既然都来了，便留个爪印呗~_(¦3」∠)_',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        LinPaiBin
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="滨书"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/12/02/AboutMe">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['人生如棋，吾愿为卒','愿你一生努力，一生被爱','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

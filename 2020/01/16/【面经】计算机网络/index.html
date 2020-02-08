@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="林湃滨的个人博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    【面经】计算机网络 |  滨书
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="滨书" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-【面经】计算机网络" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【面经】计算机网络
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/16/%E3%80%90%E9%9D%A2%E7%BB%8F%E3%80%91%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="article-date">
+  <time datetime="2020-01-16T03:13:06.000Z" itemprop="datePublished">2020-01-16</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.5k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>[toc]</p>
+<hr>
+
+<h2 id="一、三次握手和四次挥手"><a href="#一、三次握手和四次挥手" class="headerlink" title="一、三次握手和四次挥手"></a>一、三次握手和四次挥手</h2><h3 id="（一）、三次握手（建立连接）"><a href="#（一）、三次握手（建立连接）" class="headerlink" title="（一）、三次握手（建立连接）"></a>（一）、三次握手（建立连接）</h3><ol>
+<li><p>第一次握手：（Client：我要和你建立连接）</p>
+<p>客户端Client将标志位SYN置为1，Seq=J（随机产生），并将数据包发送给服务器端Server，客户端进入SYN_SENT状态，等待Server确认</p>
+</li>
+<li><p>第二次握手：（Server：你真的要和我建立连接吗？）</p>
+<p>Server端收到数据包，由SYN=1可知Client请求建立连接，Server将标志位SYN和确认位置为1，ack=J+1，并置seq=K（随机产生），并将该数据包发送给Client以确认连接请求，Server端进入SYN_RCVD状态。</p>
+</li>
+<li><p>第三次握手：（Client：我真的要和你建立连接。OK！）</p>
+<p>Client端收到确认后，检查ack是否为J+1，确认位是否为1；如果是则将标志位ACK置为1，ack=K+1，之后将该数据包发送给Server端。Server端检查ack是否为K+1，确认位ACK是否为1，正确则连接建立成功，Client和Server两端都进入ESTABLISHED状态，完成三次握手，随后Client和Server之间可以开始传输数据了。</p>
+</li>
+</ol>
+<h3 id="（二）、四次挥手（断开连接）"><a href="#（二）、四次挥手（断开连接）" class="headerlink" title="（二）、四次挥手（断开连接）"></a>（二）、四次挥手（断开连接）</h3><ol>
+<li><p>第一次挥手：（Client：我要和你断开连接）</p>
+<p>Client端发送一个FIN（finish，FIN占用一个序号），<strong>用于关闭Client到Server端的数据传送</strong>，Client进入FIN_WAIT_1状态。</p>
+</li>
+<li><p>第二次挥手：（Server：好吧，断吧）</p>
+<p>Server端收到FIN后，发送一个ACK给Client端，确认序号ack为FIN序号+1，Server端进入CLOSE_WAIT状态，此时TCP连接处于半关闭状态（客户端已经没有数据发送给服务端，但服务端如果有数据要发送，客户端还是要接收的）。</p>
+</li>
+<li><p>第三次挥手：（Server：我也要和你断开连接）</p>
+<p>Server端发送一个FIN，<strong>用于关闭Server和Client的数据传送</strong>，Server进入LAST_ACK状态。</p>
+</li>
+<li><p>第四次挥手：（Client：好吧，断吧）</p>
+<p>Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server端，ack为FIN序号+1，Server进入CLOSED状态，至此四次挥手结束，完成断开连接。</p>
+</li>
+</ol>
+<hr>
+
+<h2 id="二、为什么TCP连接需要三次握手，两次不可以吗？"><a href="#二、为什么TCP连接需要三次握手，两次不可以吗？" class="headerlink" title="二、为什么TCP连接需要三次握手，两次不可以吗？"></a>二、为什么TCP连接需要三次握手，两次不可以吗？</h2><pre><code>**防止已失效的链接请求报文突然又送到了服务端Server**，因而产生错误，使服务器一直等待建立链接，浪费服务器端的资源。</code></pre><p>　客户端发出的连接请求报文并未丢失，而是在某个网络节点长时间滞留了，以致延误到链接释放以后的某个时间才到达Server。这是，Server误以为这是Client发出的一个新的链接请求，于是就向客户端发送确认数据包，同意建立链接。</p>
+<p>若不采用“三次握手”，那么只要Server发出确认数据包，新的链接就建立了。由于client此时并未发出建立链接的请求，所以其不会理睬Server的确认，也不与Server通信；而这时Server一直在等待Client的请求，这样Server就白白浪费了一定的资源。若采用“三次握手”，在这种情况下，由于Server端没有收到来自客户端的确认，则就会知道Client并没有要求建立请求，就不会建立链接。</p>
+<hr>
+
+<h2 id="三、保证TCP连接的可靠性"><a href="#三、保证TCP连接的可靠性" class="headerlink" title="三、保证TCP连接的可靠性"></a>三、保证TCP连接的可靠性</h2><pre><code>TCP协议提供一种面向连接的、可靠的字节流服务。面向连接意味着：客户端Client与服务器端Server之间在传输数据之前必须先建立一个TCP连接。字节流服务是指两个应用程序之间通过TCP连接交换８ｂｉｔ字节构成的字节流，而TCP不在字节流中插入记录标识符。</code></pre><p>TCP通过以下方式保证传输的可靠性：</p>
+<p>１.　数据包校验</p>
+<pre><code>目的是检测数据在传输过程中的任何变化，若校验出包有错，则对其报文段并且不给出响应，这时TCP发送数据段超时后会重发数据。</code></pre><p>２.　对失序数据包重排序</p>
+<pre><code>IP数据包的到达可能是失序的，而TCP报文段是作为IP数据报来传输的，因此TCP报文段的到达也可能是失序的。因此TCP会对失序数据进行重新排序，然后再交给应用层。</code></pre><p>３.　丢弃重复数据</p>
+<pre><code>对于重复数据，能够丢弃重复数据。</code></pre><p>４.　应答机制</p>
+<pre><code>当TCP收到发自TCP连接另一端的数据，它将发送一个确认。（这个确认并不是立即发送的，通常会推迟几分之一秒）</code></pre><p>５.　超时重传</p>
+<pre><code>当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。</code></pre><p>６.　流量控制</p>
+<pre><code>TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据，这可以防止较快主机致使较慢主机的缓冲区溢出，这便是流量控制。TCP使用的流量控制协议为大小可变的滑动窗口协议。</code></pre><hr>
+
+<h2 id="四、DDos攻击"><a href="#四、DDos攻击" class="headerlink" title="四、ＤＤｏｓ攻击"></a>四、ＤＤｏｓ攻击</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><ol>
+<li>Client端向Server端发送请求连接数据包</li>
+<li>Server端向Client端发送确认数据包</li>
+<li>Client端并没有向Server端发送确认数据包，服务器一直等待来自客户端的确认</li>
+</ol>
+<h3 id="DDos的预防"><a href="#DDos的预防" class="headerlink" title="DDos的预防"></a>DDos的预防</h3><blockquote>
+<p>DDos无法彻底地根治，除非不使用TCP协议</p>
+</blockquote>
+<ul>
+<li>限制同时打开SYN半连接数目</li>
+<li>缩短SYN半连接的TIME OUT超时时间</li>
+<li>关闭不必要的服务</li>
+</ul>
+<hr>
+
+<h2 id="五、TCP和UDP的区别"><a href="#五、TCP和UDP的区别" class="headerlink" title="五、TCP和UDP的区别"></a>五、TCP和UDP的区别</h2><p>TCP (Transmission Control Protocol)和UDP(User Datagram Protocol)协议都属于传输层协议，它们之间的区别包括：</p>
+<ul>
+<li>TCP是面向连接的，UDP是无连接的；</li>
+<li>TCP是可靠的，UDP是不可靠的；</li>
+<li>TCP只支持点对点通信，UDP支持一对一、一对多、多对一、多对多的通信模式；</li>
+<li>TCP是面向字节流的，UDP是面向报文的；</li>
+<li>TCP有拥塞控制机制，UDP没有拥塞控制机制，适合媒体的通信</li>
+<li>TCP首部开销（20个字节）比UDP的首部开销（８个字节）要大。</li>
+</ul>
+<hr>
+
+<h2 id="六、TCP的拥塞控制"><a href="#六、TCP的拥塞控制" class="headerlink" title="六、TCP的拥塞控制"></a>六、TCP的拥塞控制</h2><pre><code>在某段时间，对网络中某一个资源的需求超过了该资源所能提供的可用部分，网络的性能就会变坏，这种情况就叫做拥塞。</code></pre><blockquote>
+<p>网络资源：计算机网络中的带宽、交换节点中的缓存以及处理机等。</p>
+</blockquote>
+<pre><code>拥塞控制便是防止过多的数据注入到网络中，避免网络中的路由器或链路过载。
+
+拥塞控制与流量控制不同。拥塞控制是网络链路全局性的控制过程，而流量控制是指点对点通信量的控制。</code></pre><h3 id="拥塞控制的四种方法"><a href="#拥塞控制的四种方法" class="headerlink" title="拥塞控制的四种方法"></a>拥塞控制的四种方法</h3><ol>
+<li><p>慢启动（慢开始）：</p>
+<pre><code>一开始不发送大量的数据，从１开始以２倍规律增大探测网络的拥塞程度，即从小到大逐渐增加拥塞窗口的大小。</code></pre></li>
+<li><p>拥塞避免：</p>
+<pre><code>拥塞避免算法是让拥塞窗口缓慢增大，每经过一个RTT往返时间就将发送方的拥塞窗口加1（慢开始门限ssthresh也会随着增加），使拥塞窗口按线性规律缓慢增加。</code></pre></li>
+<li><p>快重传：</p>
+<pre><code>接收方在收到一个失序的报文段后立即发出对上个接收到的报文的重复确认，使发送方及早发现有报文段没有到达对方。
+
+   在快重传算法中，发送方只要连续收到三个重复确认就应该立即发送对方尚未收到的报文段，而不必接续等待设置的重传计时器时间到期。</code></pre><p><img src="https://img-blog.csdnimg.cn/2019072300000268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDg0OTU4OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5><center>快重传</center></h5></li>
+<li><p>快恢复：</p>
+<pre><code>快恢复算法与快重传配合使用。当发送方收到三个重复确认时，将慢开始门限ssthresh门限减半（称“乘法减小”），cwnd也设为与ssthresh一般大小，然后执行拥塞避免算法。</code></pre></li>
+</ol>
+<hr>
+
+<h2 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h2><p>OSI模型从低到高有：</p>
+<ul>
+<li>物理层：<pre><code>物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性、过程特性。该层为上层协议提供了一个传输数据的物理媒体。
+在物理层，数据的单位为**比特（bit）**，属于物理层定义的典型规范代表包括：EIA／TIA　RS－２３２，EIA／TIA　RS－４４９，RJ－４５等等。</code></pre></li>
+<li>数据链路层<pre><code>数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址，数据封装成帧，流量控制，数据检错、重发等。
+数据链路层协议的代表：SDLC、ＨＤＬＣ、PPP、STP、帧中继等。在这一层的数据称为帧（frame）</code></pre></li>
+<li>网络层<pre><code>网络层负责对子网间的数据包进行路由选择。网络层还有拥塞控制，网际互连等功能。
+网络层协议的代表有：IP、IPX、RIP、OSPF等；在这一层的数据称为数据包（package）。</code></pre></li>
+<li>传输层<pre><code>传输层是第一个端到端（即主机到主机）的层次。传输层负责将上层数据分段并提供端到端的、可靠或不可靠的传输。此外传输层还要处理端到端的差错控制和流量控制问题。
+传输层协议的代表：TCP、UDP、SPX等。在这一层的数据的单位称为数据段（segment）。</code></pre></li>
+<li>会话层<pre><code>会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。此外，会话层利用在数据中插入校检点来实现数据的同步。</code></pre></li>
+<li>表示层<pre><code>表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</code></pre></li>
+<li>应用层<pre><code>应用层为操作系统或网络应用程序提供访问网络服务的接口等。应用层协议的代表包括：Telnet(23/tcp)、FTP（21/tcp）、SMTP（２５/tcp）、HTTP（80/tcp）、DNS（５３/tcp或udp）、SNMP(161/udp)等。</code></pre></li>
+</ul>
+<blockquote>
+<p>待更新……</p>
+</blockquote>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/01/16/%E3%80%90%E9%9D%A2%E7%BB%8F%E3%80%91%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/01/16/%E9%83%A8%E7%BD%B2%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            部署云服务器
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/16/Java/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java内存模型</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'gtXNe43HVDH72a7XMn9zNgz8-gzGzoHsz',
+        app_key: 'Df8WdcqcC2DCWL1pfcWb4QfN',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '既然都来了，便留个爪印呗~_(¦3」∠)_',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        LinPaiBin
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="滨书"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/12/02/AboutMe">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['人生如棋，吾愿为卒','愿你一生努力，一生被爱','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

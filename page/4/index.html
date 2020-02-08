@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="林湃滨的个人博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     滨书
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="滨书" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">滨书</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+<div id="main">
+  <section class="outer">
+  <article class="articles">
+    
+    
+    
+    
+    <article id="post-Redis/【Redis】Redis简介" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/21/Redis/%E3%80%90Redis%E3%80%91Redis%E7%AE%80%E4%BB%8B/"
+    >【Redis】Redis简介</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/21/Redis/%E3%80%90Redis%E3%80%91Redis%E7%AE%80%E4%BB%8B/" class="article-date">
+  <time datetime="2019-10-21T13:54:50.000Z" itemprop="datePublished">2019-10-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Redis%E5%9F%BA%E7%A1%80/">Redis基础</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h2><p>Redis 是完全开源免费的，遵守 BSD 协议，是一个高性能的 key - value 数据库</p>
+<p>Redis 与 其他 key - value 缓存产品有以下三个特点：</p>
+<ul>
+<li>Redis 支持数据持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。</li>
+<li>Redis 不仅仅支持简单的 key - value 类型的数据，同时还提供 list，set，zset，hash 等数据结构的存储</li>
+<li>Redis 支持数据的备份，即 master - slave 模式的数据备份</li>
+</ul>
+<h2 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h2><table>
+<thead>
+<tr>
+<th align="center">结构类型</th>
+<th align="center">结构存储的值</th>
+<th align="center">读写能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">String</td>
+<td align="center">可以是字符串，整数或者浮点数</td>
+<td align="center">可以对整个字符串或者字符串中的一部分进行操作，对整数和浮点数执行自增或者自减操作</td>
+</tr>
+<tr>
+<td align="center">List</td>
+<td align="center">一个链表，链表上的每个节点都包含一个字符串</td>
+<td align="center">从链表两端添加元素或者弹出元素，<strong>根据偏移量对链表进行修剪</strong>；读取单个或者多个元素，根据值查找或溢出元素</td>
+</tr>
+<tr>
+<td align="center">Set</td>
+<td align="center">包含字符串的无序集合，且其中的每个字符串都是各不相同的</td>
+<td align="center">添加、获取、删除单个元素，检查一个元素是否存在于集合中，计算交集、并集、差集；从集合中随机获取元素</td>
+</tr>
+<tr>
+<td align="center">Hash</td>
+<td align="center">包含键值对的无序哈希表</td>
+<td align="center">添加、获取、删除单个键值对，获取所有键值对</td>
+</tr>
+<tr>
+<td align="center">Zset</td>
+<td align="center">字符串成员与浮点数分支之间的有序映射，元素的排列顺序由分值的大小决定</td>
+<td align="center">添加、获取、删除单个元素，根据分支范围（range）或者成员来获取元素。</td>
+</tr>
+</tbody></table>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>redis事务一次可以执行多条命令，服务器在执行命令期间，不会执行其他客户端的命令请求。</p>
+<p>事务中的一条或多条命令被一次性发送到服务器，并不是逐条发送，此种方式被称为流水线，可以减少客户端与服务器之间的网络通信次数，提升性能。</p>
+<p>Redis一般的事务实现方式：使用MULTI和EXEC命令将事务操作包起来：</p>
+<ol>
+<li>批量操作在发送EXEC命令前被放入队列缓存；</li>
+<li>收到EXEC命令后进入事务执行，事务中任意命令执行失败，其余命令依然被执行。也就是说Redis事务不保证原子性；</li>
+<li>在事务执行过程中，其他客户端提交的命令不会插入到事务执行命令序列中；</li>
+</ol>
+<p>一个事务从开始到执行过程中经历的三个阶段：</p>
+<ul>
+<li>开始事务；</li>
+<li>命令入队；</li>
+<li>执行事务；</li>
+</ul>
+<p>eg：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MULTI	<span class="comment">--1、开始事务</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--2、命令入队</span></span><br><span class="line"><span class="keyword">SET</span> book-<span class="keyword">name</span> <span class="string">"Mastering C++ in 21 days"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Get</span> book-<span class="keyword">name</span></span><br><span class="line"></span><br><span class="line">SADD tag <span class="string">"C++"</span> <span class="string">"Programming"</span> <span class="string">"Mastering Series"</span></span><br><span class="line"></span><br><span class="line">SMEMBERS tag</span><br><span class="line"></span><br><span class="line">EXEC	<span class="comment">--3、执行事务</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>单个命令的执行是原子性的，但是Redis没有在事务上增加任何维持原子性的机制，所以Redis事务的执行并不是原子性的。</p>
+<p>Redis的事务，可以理解是一个打包好的、批量的执行脚本，但是这些批量的指令并不是原子化的操作，中间某条指令的失败，不会导致事务中之前执行的指令的回滚，也不会导致之后的指令不会执行。</p>
+<p>官网相关内容说明：</p>
+<p> <em>It’s important to note that even when a command fails, all the other commands in the queue are processed – Redis will not stop the processing of commands</em> </p>
+</blockquote>
+<h3 id="Redis事务命令"><a href="#Redis事务命令" class="headerlink" title="Redis事务命令"></a>Redis事务命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DISCARD</td>
+<td align="center">取消事务，放弃执行事务块内的所有命令</td>
+</tr>
+<tr>
+<td align="center">EXEC</td>
+<td align="center">执行所有事务块内的命令</td>
+</tr>
+<tr>
+<td align="center">MULTI</td>
+<td align="center">标记事务块的开始</td>
+</tr>
+<tr>
+<td align="center">UNWATCH</td>
+<td align="center">取消Watch命令对所有key的监视</td>
+</tr>
+<tr>
+<td align="center">WATCH key [key …]</td>
+<td align="center">监视一个/多个key，如果在事务执行之前这个/些 key 被其他命令改动<br>则该事务将被打断</td>
+</tr>
+</tbody></table>
+<h2 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h2><p>Redis 是内存型数据库，为了保证数据在断电后不会丢失，需要将内存中的数据持久化到硬盘上。</p>
+<h3 id="（1）RDB-持久化"><a href="#（1）RDB-持久化" class="headerlink" title="（1）RDB 持久化"></a>（1）RDB 持久化</h3><p>将某个时间点的所有数据都存放到硬盘上。</p>
+<p>可以将快照复制到其他服务器从而创建具有相同数据的服务器副本。</p>
+<p>如果系统发生故障，将会丢失最后一次创建快照之后的数据。</p>
+<p>如果数据量大，保存快照的时间会很长。</p>
+<h3 id="（2）AOF-持久化"><a href="#（2）AOF-持久化" class="headerlink" title="（2）AOF 持久化"></a>（2）AOF 持久化</h3><p>将写命令添加到 AOF 文件（append only file）末尾。</p>
+<p>使用 AOF 持久化需要设置同步选项，从而确保<strong>写命令</strong>同步到磁盘文件上的时机。</p>
+<p>这是因为对文件进行写入并不会马上将内容同步到磁盘上，而是先存储到缓冲区，然后由操作系统决定什么时候同步到磁盘。</p>
+<p>选项同步频率always每个写命令都同步eyerysec每秒同步一次no让操作系统来决定何时同步</p>
+<ul>
+<li>always 选项会严重减低服务器的性能</li>
+<li>everysec 选项比较合适，可以保证系统崩溃时只会丢失一秒左右的数据，并且 Redis 每秒执行一次同步对服务器几乎没有任何影响。</li>
+<li>no 选项并不能给服务器性能带来多大的提升，而且会增加系统崩溃时数据丢失的数量。</li>
+</ul>
+<p>随着服务器写请求的增多，AOF 文件会越来越大。Redis 提供了一种将 AOF 重写的特性，能够去除 AOF 文件中的冗余写命令。</p>
+<h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><p>通过使用 slaveof host port 命令来让一个服务器成为另一个服务器的从服务器。</p>
+<p>一个从服务器只能有一个主服务器，并且不支持主主复制。</p>
+<h3 id="连接过程"><a href="#连接过程" class="headerlink" title="连接过程"></a>连接过程</h3><ol>
+<li>主服务器创建快照文件，即 RDB 文件，发送给从服务器，并在发送期间使用缓冲区记录执行的写命令。</li>
+<li>快照文件发送完毕之后，开始像从服务器发送存储在缓冲区的写命令。</li>
+<li>从服务器丢弃所有旧数据，载入主服务器发来的快照文件，之后从服务器开始接受主服务器发来的写命令。</li>
+<li>主服务器每执行一次写命令，就向从服务器发送相同的写命令。</li>
+</ol>
+<h3 id="主从链"><a href="#主从链" class="headerlink" title="主从链"></a>主从链</h3><p>随着负载不断上升，主服务器无法很快的更新所有从服务器，或者重新连接和重新同步从服务器将导致系统超载。</p>
+<p>为了解决这个问题，可以创建一个中间层来分担主服务器的复制工作。中间层的服务器是最上层服务器的从服务器，又是最下层服务器的主服务器。</p>
+<h2 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h2><p>Sentinel（哨兵）可以监听集群中的服务器，并在主服务器进入下线状态时，自动从从服务器中选举处新的主服务器。</p>
+<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>分片是将数据划分为多个部分的方法，可以将数据存储到多台机器里面，这种方法在解决某些问题时可以获得线性级别的性能提升。</p>
+<p>假设有 4 个 Redis 实例 R0, R1, R2, R3, 还有很多表示用户的键 user:1, user:2, … , 有不同的方式来选择一个指定的键存储在哪个实例中。</p>
+<ul>
+<li>最简单的是范围分片，例如用户 id 从 0 ~ 1000 的存储到实例 R0 中，用户 id 从 1001 ~ 2000 的存储到实例 R1中，等等。但是这样需要维护一张映射范围表，维护操作代价高。</li>
+<li>还有一种是哈希分片。使用 CRC32 哈希函数将键转换为一个数字，再对实例数量求模就能知道存储的实例。</li>
+</ul>
+<p>根据执行分片的位置，可以分为三种分片方式：</p>
+<ul>
+<li>客户端分片：客户端使用一致性哈希等算法决定应当分布到哪个节点。</li>
+<li>代理分片：将客户端的请求发送到代理上，由代理转发到正确的节点上。</li>
+<li>服务器分片：Redis Cluster。</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-DistributedArchitecture/分布式架构体系" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/19/DistributedArchitecture/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB/"
+    >分布式架构体系</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/19/DistributedArchitecture/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB/" class="article-date">
+  <time datetime="2019-10-19T13:56:28.000Z" itemprop="datePublished">2019-10-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Git/VersionControlByGit" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/19/Git/VersionControlByGit/"
+    >Git实现版本控制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/19/Git/VersionControlByGit/" class="article-date">
+  <time datetime="2019-10-19T12:22:37.000Z" itemprop="datePublished">2019-10-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Git实现项目版本控制"><a href="#Git实现项目版本控制" class="headerlink" title="Git实现项目版本控制"></a>Git实现项目版本控制</h1><blockquote>
+<p>Git 与GitHub：Git是一个版本控制工具，而GitHub事一个面向开源以及私有软件项目的托管平台，程序员交流的地方</p>
+</blockquote>
+<p>本文主要记录git对多人参与的一个项目进行版本控制的手记，如果需要安装和使用git，以及利用git对GitHub仓库项目的操作处理，可以查看文章：<a href="https://blog.csdn.net/weixin_36816337/article/details/81070359" target="_blank" rel="noopener">为项目配置git远程仓库</a></p>
+<p>主要学习来源：</p>
+<p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git官方网站</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" rel="tag">版本控制</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Java/JavaMemoryModel" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/19/Java/JavaMemoryModel/"
+    >Java内存模型</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/19/Java/JavaMemoryModel/" class="article-date">
+  <time datetime="2019-10-19T04:31:56.000Z" itemprop="datePublished">2019-10-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Java内存模型（JMM）"><a href="#Java内存模型（JMM）" class="headerlink" title="Java内存模型（JMM）"></a>Java内存模型（JMM）</h1><p>​    JMM全称Java Memory Model 。其实JMM并不像JVM内存结构一样是真实存在的。他只是一个抽象的概念。</p>
+<p>​    JMM是和多线程相关的，他描述了一组规则或规范，这个规范定义了一个线程对共享变量的写入时对另一个线程是可见的。</p>
+<h2 id="JMM定义"><a href="#JMM定义" class="headerlink" title="JMM定义"></a>JMM定义</h2><p>​    Java内存模型（Java Memory Model ,JMM）就是一种符合内存模型规范的，屏蔽了各种硬件和操作系统的访问差异的，保证了Java程序在各种平台下对内存的访问都能得到一致效果的机制及规范。目的是解决由于多线程通过共享内存进行通信时，存在的<strong>原子性</strong>、<strong>可见性</strong>（缓存一致性）以及<strong>有序性</strong>问题。</p>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p>​    线程是CPU调度的基本单位。</p>
+<p>​    CPU有时间片的概念，会根据不同的调度算法进行线程调度。所以在多线程场景下，就会发生原子性问题。因为线程在执行一个读改写操作时，在执行完读改之后，时间片耗完，就会被要求放弃CPU，并等待重新调度。这种情况下，读改写就不是一个原子操作。即存在原子性问题。</p>
+<h3 id="可见性（缓存一致性）"><a href="#可见性（缓存一致性）" class="headerlink" title="可见性（缓存一致性）"></a>可见性（缓存一致性）</h3><p>​    在多核CPU，多线程的场景中，每个核都至少有一个L1 缓存。多个线程访问进程中的某个共享内存，且这多个线程分别在不同的核心上执行，则每个核心都会在各自的caehe中保留一份共享内存的缓冲。由于多核是可以并行的，可能会出现<strong>多个线程同时写各自的缓存</strong>的情况，而各自的cache之间的数据就有可能不同。</p>
+<p>​    在CPU和主存之间增加缓存，在多线程场景下就可能存在缓存一致性问题，也就是说，在多核CPU中，每个核的自己的缓存中，关于同一个数据的缓存内容可能不一致。</p>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><p>​    除了引入了时间片以外，由于处理器优化和指令重排等，CPU还可能对输入代码进行乱序执行，比如load-&gt;add-&gt;save 有可能被优化成load-&gt;save-&gt;add 。这就是有序性问题。</p>
+<p>​    为了保证共享内存的正确性（可见性、有序性、原子性），内存模型定义了共享内存系统中多线程程序读写操作行为的规范。通过这些规则来规范对内存的读写操作，从而保证指令执行的正确性。它与处理器有关、与缓存有关、与并发有关、与编译器也有关。他解决了CPU多级缓存、处理器优化、指令重排等导致的内存访问问题，保证了并发场景下的一致性、原子性和有序性。</p>
+<p>​    针对上面的这些问题，不同的操作系统都有不同的解决方案，而Java语言为了屏蔽掉底层的差异，定义了一套属于Java语言的内存模型规范，即Java内存模型。</p>
+<p><img src="https://i1.go2yd.com/image.php?url=0MXImMlNFB" alt="img"></p>
+<h2 id="JMM实现"><a href="#JMM实现" class="headerlink" title="JMM实现"></a>JMM实现</h2><p>​    在Java中提供了一系列和并发处理相关的关键字，比如_volatile_、_synchronized_、_final_、_concurren_包等。其实这些就是Java内存模型封装了底层的实现后提供给程序员使用的一些关键字。</p>
+<p>​    在开发多线程的代码的时候，我们可以直接使用synchronized等关键字来控制并发，从来就不需要关心底层的编译器优化、缓存一致性等问题。所以，Java内存模型，除了定义了一套规范，还提供了一系列原语，封装了底层实现后，供开发者直接使用。</p>
+<p>​    那么，在Java中，是分别使用什么方式来保证原子性、可见性和有序性呢？</p>
+<h3 id="原子性-1"><a href="#原子性-1" class="headerlink" title="原子性"></a>原子性</h3><p>​    在Java中，为了保证原子性，提供了两个高级的字节码指令monitorenter和monitorexit，这两个字节码，在Java中对应的关键字就是synchronized。</p>
+<p>​    因此，在Java中可以使用synchronized来保证方法和代码块内的操作是原子性的。</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>​    Java内存模型是通过在变量修改后将新值同步回主内存，在变量读取前从主内存刷新变量值的这种依赖主内存作为传递媒介的方式来实现的。</p>
+<p>​    Java中的volatile关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到主内存，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用volatile来保证多线程操作时变量的可见性。</p>
+<blockquote>
+<p>除了volatile，Java中的synchronized和final两个关键字也可以实现可见性，只不过实现方式不同。</p>
+</blockquote>
+<h3 id="有序性-1"><a href="#有序性-1" class="headerlink" title="有序性"></a>有序性</h3><p>​    在Java中，可以使用synchronized和volatile来保证多线程之间操作的有序性。实现方式有所区别：</p>
+<ul>
+<li>volatile关键字会禁止指令重排。</li>
+<li>synchronized关键字保证同一时刻只允许一条线程操作。</li>
+</ul>
+<p>​    在简单介绍完Java并发编程中解决原子性、可见性以及有序性可以使用的关键字后，这个synchronized关键字似乎在每个地方都有它，它可以同时满足以上三种特性，这其实也是很多人滥用synchronized的原因。</p>
+<p>但是<strong>synchronized是比较影响性能的</strong>，虽然编译器提供了很多锁优化技术，但是也不建议过度使用。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-designMode/CommonDesignMode" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/18/designMode/CommonDesignMode/"
+    >CommonDesignMode</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/18/designMode/CommonDesignMode/" class="article-date">
+  <time datetime="2019-10-18T01:07:43.000Z" itemprop="datePublished">2019-10-18</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>[TOC]</p>
+<h1 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h3 id="懒汉式单例"><a href="#懒汉式单例" class="headerlink" title="懒汉式单例"></a>懒汉式单例</h3><p>线程不安全</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getIntance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="keyword">null</span>)</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程安全</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="keyword">null</span>)</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="饿汉式单例"><a href="#饿汉式单例" class="headerlink" title="饿汉式单例"></a>饿汉式单例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="双重校检锁"><a href="#双重校检锁" class="headerlink" title="双重校检锁"></a>双重校检锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(singleton == <span class="keyword">null</span>)</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2>
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">-设计模式</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-docker/DockerLearn" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/16/docker/DockerLearn/"
+    >Docker容器学习</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/16/docker/DockerLearn/" class="article-date">
+  <time datetime="2019-10-16T12:14:28.000Z" itemprop="datePublished">2019-10-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="认识Docker"><a href="#认识Docker" class="headerlink" title="认识Docker"></a>认识Docker</h2><h3 id="Docker是什么？"><a href="#Docker是什么？" class="headerlink" title="Docker是什么？"></a>Docker是什么？</h3><p>Docker类似于集装箱。</p>
+<p>Docker是LXC（Linux Containers，Linux容器）的高级容器引擎。是一个软件容器平台。</p>
+<p>仓库：docker存放的事 镜像 + 私人镜像 ==》 dockerhub</p>
+<p>容器：装东西 –》软件</p>
+<p>镜像：软件打成的包，如redis、tomcat、</p>
+<h3 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h3><p>一个文本文件</p>
+<h2 id="Docker集群"><a href="#Docker集群" class="headerlink" title="Docker集群"></a>Docker集群</h2><p>docker集群化</p>
+<p>一键动态扩容</p>
+<p>负载均衡</p>
+<p>微服务：服务治理（业务逻辑） 构建服务 部署服务</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Java/JavaMultiThread" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/16/Java/JavaMultiThread/"
+    >【Java】多线程</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/16/Java/JavaMultiThread/" class="article-date">
+  <time datetime="2019-10-16T02:27:19.000Z" itemprop="datePublished">2019-10-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="Java中的多线程"><a href="#Java中的多线程" class="headerlink" title="Java中的多线程"></a>Java中的多线程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="用多线程的目的是什么？"><a href="#用多线程的目的是什么？" class="headerlink" title="用多线程的目的是什么？"></a>用多线程的目的是什么？</h3><p>充分利用cpu资源，并发做多件事。</p>
+<h3 id="如何在Java程序中创建一个线程？"><a href="#如何在Java程序中创建一个线程？" class="headerlink" title="如何在Java程序中创建一个线程？"></a>如何在Java程序中创建一个线程？</h3><p>本质：new Thread()</p>
+<ol>
+<li>继承Thread类</li>
+<li>实现Runable接口，重写run()方法。</li>
+</ol>
+<h3 id="线程是什么？"><a href="#线程是什么？" class="headerlink" title="线程是什么？"></a>线程是什么？</h3><p>一天代码执行流，完成一组代码的执行。（称这段代码为线程的任务）</p>
+<h4 id="任务是什么？"><a href="#任务是什么？" class="headerlink" title="任务是什么？"></a>任务是什么？</h4><p>通常我们会把在runnable方法中的run()方法作为一个任务去执行。</p>
+<p>任务指的是run()方法中的代码块。</p>
+<h3 id="cpu是做什么的？"><a href="#cpu是做什么的？" class="headerlink" title="cpu是做什么的？"></a>cpu是做什么的？</h3><p><strong>任务</strong> –装入》 <strong>线程</strong> –运送》 <strong>CPU1执行代码</strong></p>
+<h3 id="多线程是不是越多越好"><a href="#多线程是不是越多越好" class="headerlink" title="多线程是不是越多越好"></a>多线程是不是越多越好</h3><ul>
+<li><p>内存问题：线程越多，内存的占用越多；可能会导致内存溢出问题</p>
+</li>
+<li><p>需要频繁切换线程上下文，影响性能。</p>
+</li>
+<li><p>线程在Java中是一个对象，每一个Java线程都需要一个操作系统线程支持，线程创建，销毁需要时间，如果 创建时间+销毁时间 》 任务执行时间，效率就很低，很不划算。</p>
+</li>
+<li><p>Java对象占用堆内存，操作系统线程占用系统内存，根据jvm规范，一个线程默认的最大栈大小为1M，这个栈空间需要从系统内存中分配。<strong>线程太多的话，会消耗很多的内存</strong></p>
+</li>
+</ul>
+<h2 id="1、如何正确使用多线程"><a href="#1、如何正确使用多线程" class="headerlink" title="1、如何正确使用多线程"></a>1、如何正确使用多线程</h2><ol>
+<li>目的：充分使用cpu并发做多件事</li>
+<li>本质：把代码送给cpu执行</li>
+<li>用合适数量的线程(“卡车”)不断运送即可。（这合适数量的线程就构成了一个<strong>池</strong>）</li>
+<li>有任务要执行，就放入池中，池中的一个线程就把任务运送到cpu中执行。</li>
+</ol>
+<h2 id="2、线程池"><a href="#2、线程池" class="headerlink" title="2、线程池"></a>2、线程池</h2><h3 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h3><p>BlockingQueue：堵塞队列，线程安全</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>抛出异常</th>
+<th>特殊值</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-JavaFrame/SpringCloudIntroduction" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/15/JavaFrame/SpringCloudIntroduction/"
+    >【框架】SpringCloud总结</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/15/JavaFrame/SpringCloudIntroduction/" class="article-date">
+  <time datetime="2019-10-15T03:44:46.000Z" itemprop="datePublished">2019-10-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaFrame/">JavaFrame</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1><h2 id="1、单体架构系统与分布式集群"><a href="#1、单体架构系统与分布式集群" class="headerlink" title="1、单体架构系统与分布式集群"></a>1、单体架构系统与分布式集群</h2><h3 id="单体架构系统"><a href="#单体架构系统" class="headerlink" title="单体架构系统"></a>单体架构系统</h3><p>单体架构便是将所有功能都放于一个应用之中。</p>
+<p>单体架构系统的特点：</p>
+<ul>
+<li><p>好处：便于开发、测试、部署也方便，直接打包成jar或war便可。</p>
+</li>
+<li><p>弊端：高访问，高并发的上限是固定的。 </p>
+<blockquote>
+<p>比如一个单体架构，能够承受 1000次访问/秒。 但是访问量达到 2000次/秒的时候，就会非常卡顿，严重影响业务，并且仅仅依靠单体架构本身，很难突破这个瓶颈了。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="分布式和集群"><a href="#分布式和集群" class="headerlink" title="分布式和集群"></a>分布式和集群</h3><p>打破单体架构性能瓶颈的问题，</p>
+<h2 id="2、微服务的特点"><a href="#2、微服务的特点" class="headerlink" title="2、微服务的特点"></a>2、微服务的特点</h2><h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p><strong>技术异构性:</strong></p>
+<p>在一个由多个服务相互协作的系统中,可以在不同的服务中使用最适合该服务的技术</p>
+<p><strong>弹性:</strong></p>
+<p>如果系统中的一个组件不可用了,但并没有导致级联故障,那么系统的其他部分还可以正常运行</p>
+<p><strong>扩展:</strong></p>
+<p>可以只对那些需要扩属的服务进行扩属</p>
+<p><strong>简化部害:</strong></p>
+<p>各个服务的部署是独立的,这样就可以更快地对特定部分的代码进行部<br>·与组织结构相匹配:可以很好地将架构与组织结构相匹配,避免出现过大的代码库,从而得凖想团队大小及生产力</p>
+<p>可组合性:</p>
+<p>不同服务模块的接口可以再进行重用,成为其他产品中的一个组件</p>
+<p><strong>对可替代性的优化:</strong></p>
+<p>可以在需要时轻易地重写服务,或者删除不再使用的服务</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.<strong>运维开销更多的服务也就麻味着更多的运维</strong>,产品团队需要保证所有的相关服务都有完善的监控等基础设施,传统的架构开发者只需要保证一个应用正常运行,而现在却需要保证几十甚至上百道工序高效运转，这是一个艰巨的任务</p>
+<p>Devops要求使用微服务架构后,开发团队需要保证一个 Tomcat集群可用,保证一个数据库可用,这就味团队需要高品质的 Devops和自动化技术,而现在,这样的全栈式人才很少,</p>
+<p>隐式接口<strong>服务和服务之间通过接口来联系</strong>,当某一个服务更改接口格式时,可能涉及到此接口的所有服<br>务都需要做调整</p>
+<p><strong>重复劳动</strong>在很多服务中可能都会使用到同一个功能,而这一功能点投有足够大到提供一个服务的程度,这个时候可能不同的服务团队都会单独开发这一D能,的业务逻,这压背了良好的件工程中的很多</p>
+<h2 id="SpringCloud和Dubbo的区别"><a href="#SpringCloud和Dubbo的区别" class="headerlink" title="SpringCloud和Dubbo的区别"></a>SpringCloud和Dubbo的区别</h2><p><img src="https://www.bjsxt.com/wp-content/themes/sxt/statics/images/bjsxt/javamianshiti/images/javaimg41.png" alt=""></p>
+<h2 id="SpringCloud基本组件"><a href="#SpringCloud基本组件" class="headerlink" title="SpringCloud基本组件"></a>SpringCloud基本组件</h2><h3 id="1、SpringCloud-Eureka：注册发现中心"><a href="#1、SpringCloud-Eureka：注册发现中心" class="headerlink" title="1、SpringCloud Eureka：注册发现中心"></a>1、SpringCloud Eureka：注册发现中心</h3><h4 id="1-1、建立服务注册与发现中心：eureka-server"><a href="#1-1、建立服务注册与发现中心：eureka-server" class="headerlink" title="1.1、建立服务注册与发现中心：eureka server"></a>1.1、建立服务注册与发现中心：eureka server</h4><ol>
+<li>Spring Initializr-》勾选 Eureka Server依赖 ，进行创建注册发现server模块</li>
+</ol>
+<p>查看pom.xml珠主要内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Greenwich.SR3<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>application.yml内容</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 当前服务的名称</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span></span><br><span class="line">  <span class="comment">###指定端口</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="comment">###指定注册地址</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在运行类中需要加上一个@EnableEurekaServer注解，说明这是一个 服务注册发现 的eureka server</p>
+</blockquote>
+<h4 id="1-2、建立各个微服务client"><a href="#1-2、建立各个微服务client" class="headerlink" title="1.2、建立各个微服务client"></a>1.2、建立各个微服务client</h4><ol>
+<li><p>Spring Initializr-》勾选Spring Web、 Eureka Client依赖 ，进行创建微服务模块</p>
+<p>查看pom.xml文件主要内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Greenwich.SR3<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>application.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 当前服务的名称</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-grade</span></span><br><span class="line">  <span class="comment">### 指定端口</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:8080/eureka/</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要在运行类中配置@EnableEurekaClient注解，实现注解</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="1-3、实现各个服务之间的通信"><a href="#1-3、实现各个服务之间的通信" class="headerlink" title="1.3、实现各个服务之间的通信"></a>1.3、实现各个服务之间的通信</h4><ol>
+<li><p>resttemplate实现微服务之间的调用：</p>
+<p>Application类中向IOC容器中注册一个RestTemplate的bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在Ioc容器中注册一个restTemplate的bean</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@LoadBalanced</span>   <span class="comment">//负载均衡</span></span><br><span class="line">    <span class="function">RestTemplate <span class="title">restTemplate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RestTemplate();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>   在Service层中通过RestTemplate实现对其他微服务发起请求</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGrade</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        String url = <span class="string">"http://eureka-grade/get/&#123;id&#125;"</span>;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 第一个参数为请求的url</span></span><br><span class="line"><span class="comment">         * 第二个参数为返回的值类型</span></span><br><span class="line"><span class="comment">         * 第三个参数为 Object... uriVariables参数</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> restTemplate.getForObject(url , String<span class="class">.<span class="keyword">class</span>,<span class="title">id</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>   在Controller中调用Service，对其他微服务进行请求：</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentService studentService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/getMsg"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMsg</span><span class="params">(String name,Integer id)</span></span>&#123;</span><br><span class="line">        String gradeMsg = studentService.getGrade(id);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">"是"</span> + gradeMsg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li><p>Feign</p>
+<p>Feign是SpringCloud 中服务Client端的调用框架，通常与ribbon(负载均衡)，hystrix(断路器)组合使用。</p>
+<p>在某些项目中，由于遗留原因，整个系统并不是spring cloud项目，甚至不是spring项目，而使用者关注的重点仅仅是简化http调用代码的编写。</p>
+<p>如果采用httpclient或者okhttp这样相对较重的框架，对初学者来说编码量与学习曲线都会是一个挑战，而使用spring中RestTemplate，又没有配置化的解决方案，由此想到是否可以脱离spring cloud，独立使用Feign。</p>
+<ul>
+<li>Maven依赖</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.feign&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;feign-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;8.18.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ul>
+<li><p>自定义接口</p>
+<p>通过@RequestLine指定HTTP协议和URL地址</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> feign.Param;</span><br><span class="line"><span class="keyword">import</span> feign.RequestLine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RemoteService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestLine</span>(<span class="string">"GET /users/list?name=&#123;name&#125;"</span>)</span><br><span class="line">    <span class="function">String <span class="title">getOwner</span><span class="params">(@Param(value = <span class="string">"name"</span>)</span> String name)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>配置类</p>
+<p>options方法指定<strong>连接超时时长</strong>及<strong>响应超时时长</strong>，retryer方法指定重试策略,target方法绑定接口与服务端地址。返回类型为绑定的接口类型。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RemoteService service = Feign.builder()</span><br><span class="line">            .options(<span class="keyword">new</span> Options(<span class="number">1000</span>, <span class="number">3500</span>))</span><br><span class="line">            .retryer(<span class="keyword">new</span> Retryer.Default(<span class="number">5000</span>, <span class="number">5000</span>, <span class="number">3</span>))</span><br><span class="line">            .target(RemoteService.class, "http://127.0.0.1:8085");</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String result = service.getOwner(<span class="string">"scott"</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>业务接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RemoteService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Header</span>(&#123;<span class="string">"Content-Type:application/json"</span>,<span class="string">"Accept:application/json"</span>&#125;)</span><br><span class="line">    <span class="meta">@RequestLine</span>(<span class="string">"POST /user/list"</span>)</span><br><span class="line">    <span class="function">User <span class="title">getOwner</span><span class="params">(User user)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RemoteService service = Feign.builder()</span><br><span class="line">    .encoder(<span class="keyword">new</span> JacksonEncoder())			<span class="comment">//对象编码方式</span></span><br><span class="line">    .decoder(<span class="keyword">new</span> JacksonDecoder())			<span class="comment">//对象解码方式</span></span><br><span class="line">    .options(<span class="keyword">new</span> Options(<span class="number">1000</span>,<span class="number">3500</span>))		<span class="comment">//</span></span><br><span class="line">    .retryer(<span class="keyword">new</span> Retryer.Default(<span class="number">5000</span>,<span class="number">5000</span>,<span class="number">3</span>))</span><br><span class="line">    .target(RemoteService.class,"http://127.0.0.1:8085");</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+</li>
+</ul>
+<h3 id="2、SpringCloud-Ribbon：负载均衡"><a href="#2、SpringCloud-Ribbon：负载均衡" class="headerlink" title="2、SpringCloud Ribbon：负载均衡"></a>2、SpringCloud Ribbon：负载均衡</h3><p>​    Ribbon 是一个基于Http和TCP的客服端负载均衡工具，它是基于Netflix Ribbon实现的。</p>
+<p>​    它不像spring cloud服务注册中心、配置中心、API网关那样独立部署，但是它几乎存在于每个spring cloud 微服务中。包括feign提供的声明式服务调用也是基于该Ribbon实现的。</p>
+<p>​    ribbon默认提供很多种负载均衡算法，例如 轮询、随机 等等。甚至包含自定义的负载均衡算法。</p>
+<p>用来实现客户端的负载均衡，支持http和udp的传输协议。无缝衔接eureka（同一家公司开发的）</p>
+<p>核心：</p>
+<ul>
+<li>服务发现：发现依赖服务的列表</li>
+<li>服务选择规则：在多个服务中如何选择一个有效服务</li>
+<li>服务监听：检测失效的服务，剔除失效服务</li>
+</ul>
+<p>负载均衡方案：</p>
+<p>第一类：集中式负载均衡, 即在consumer和provider之间使用独立的负载均衡设施(可以是硬件，如F5, 也可以是软件，如nginx), 由该设施负责把 访问请求 通过某种策略转发至provider；</p>
+<p>第二类：进程内负载均衡，将负载均衡逻辑集成到consumer，consumer从服务注册中心获知有哪些地址可用，然后自己再从这些地址中选择出一个合适的provider。</p>
+<p>Ribbon就属于后者，它只是一个类库，集成于consumer进程，consumer通过它来获取到provider的地址。</p>
+<p>常见的负载均衡策略：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>策略名称</th>
+<th>策略对应的类名</th>
+<th>实现原理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>轮询策略（默认）</td>
+<td>RoundRobinRule</td>
+<td>轮询策略表示每次都顺序取下一个provider，比如一共有5个provider，第1次取第1个，第2次取第2个，第3次取第3个，以此类推</td>
+</tr>
+<tr>
+<td>2</td>
+<td>权重轮询策略</td>
+<td>WeightedResponseTimeRule</td>
+<td>1.根据每个provider的响应时间分配一个权重，响应时间越长，权重越小，被选中的可能性越低。<br> 2.原理：一开始为轮询策略，并开启一个计时器，每30秒收集一次每个provider的平均响应时间，当信息足够时，给每个provider附上一个权重，并按权重随机选择provider，高权越重的provider会被高概率选中。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>随机策略</td>
+<td>RandomRule</td>
+<td>从provider列表中随机选择一个provider</td>
+</tr>
+<tr>
+<td>4</td>
+<td>最少并发数策略</td>
+<td>BestAvailableRule</td>
+<td>选择正在请求中的<strong>并发数最小</strong>的provider，除非这个provider在熔断中。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>在“选定的负载均衡策略”基础上进行重试机制</td>
+<td>RetryRule</td>
+<td>1.“选定的负载均衡策略”这个策略是轮询策略RoundRobinRule <br>2.该重试策略先设定一个阈值时间段，如果在这个阈值时间段内当选择provider不成功，则一直尝试采用“选定的负载均衡策略：轮询策略”最后选择一个可用的provider</td>
+</tr>
+<tr>
+<td>6</td>
+<td>可用性敏感策略</td>
+<td>AvailabilityFilteringRule</td>
+<td>过滤性能差的provider,有2种： <br>第一种：过滤掉在eureka中处于一直连接失败provider <br>第二种：过滤掉高并发的provider</td>
+</tr>
+<tr>
+<td>7</td>
+<td>区域敏感性策略</td>
+<td>ZoneAvoidanceRule</td>
+<td>1.以一个区域为单位考察可用性，对于不可用的区域整个丢弃，从剩下区域中选可用的provider <br>2.如果这个ip区域内有一个或多个实例不可达或响应变慢，都会降低该ip区域内其他ip被选中的权重。</td>
+</tr>
+</tbody></table>
+<h3 id="3、SpringCloud-Feign"><a href="#3、SpringCloud-Feign" class="headerlink" title="3、SpringCloud Feign"></a>3、SpringCloud Feign</h3><p>Feign是一种声明式、模板化的HTTP客户端技术(仅在consumer中使用)。</p>
+<h4 id="什么是声明式调用"><a href="#什么是声明式调用" class="headerlink" title="什么是声明式调用"></a>什么是声明式调用</h4><p>声明式调用就像调用本地方法一样调用远程方法;无感知远程http请求。</p>
+<p>1、Spring Cloud的声明式调用, 可以做到使用 HTTP请求远程服务时能就像调用本地方法一样的体验，开发者完全感知不到这是远程方法，更感知不到这是个HTTP请求。</p>
+<p>2、它像Dubbo一样，consumer直接调用接口方法调用provider，而不需要通过常规的Http Client构造请求再解析返回数据。</p>
+<p>3、它解决了让开发者调用远程接口就跟调用本地方法一样，无需关注与远程的交互细节，更无需关注分布式环境开发。</p>
+<h3 id="4、SpringCloud-Hystrix：断路器"><a href="#4、SpringCloud-Hystrix：断路器" class="headerlink" title="4、SpringCloud Hystrix：断路器"></a>4、SpringCloud Hystrix：断路器</h3><h3 id="5、SpringCloud-Config：分布式配置中心"><a href="#5、SpringCloud-Config：分布式配置中心" class="headerlink" title="5、SpringCloud Config：分布式配置中心"></a>5、SpringCloud Config：分布式配置中心</h3><p>为什么要使用springcloud config配置中心</p>
+<p>springcloud config采用集中式的配置中心来管理每个服务的配置信息。springcloud config 配置中心在微服务分布式系统中，采用服务端和客户端来提供可拓展的配置服务，配置中心负责管理所有服务的各种环境配置文件。</p>
+<p>配置中心默认采用git的方式存储配置文件，因此很容易部署和修改，有助于对环境配置进行版本管理。</p>
+<p>配置中心config 解决了微服务配置的中心化、版本控制、平台独立、语言独立等问题。</p>
+<p>config的特性：</p>
+<ol>
+<li>提供服务端和客户端的支持（springcloud config server 和 springcloud config client）</li>
+<li>集中式管理分布式环境下的应用配置</li>
+<li>基于Spring环境，与Spring集成</li>
+<li>可用于任何语言开发的程序</li>
+<li>默认实现基于git仓库的版本管理</li>
+</ol>
+<h3 id="6、SpringCloud-Zuul：服务网关"><a href="#6、SpringCloud-Zuul：服务网关" class="headerlink" title="6、SpringCloud Zuul：服务网关"></a>6、SpringCloud Zuul：服务网关</h3><p>网关服务，通常是外部访问服务的唯一接口，访问内部的所有服务都必须先经过网关服务。网关服务的主要功能是<strong>消息解析过滤，路由，转发</strong>等。</p>
+<p>服务网关 = 路由转发 + 过滤器</p>
+<ul>
+<li>路由转发：接受一切外界请求，转发到后端的微服务中</li>
+<li>过滤器：在服务网关中可以完成一系列的横切功能，如权限校验，限流以及监控等等，这些都可以通过过滤器实现（路由转发也是通过过滤器实现的）</li>
+</ul>
+<p>1、为什么需要服务网关</p>
+<p>在微服务体系架构中，所谓的横切功能可以写在一下三个位置：</p>
+<ul>
+<li>每个服务自己进行实现</li>
+<li>写到一个公共的服务中，其他需要的服务都依赖于这个服务</li>
+<li>写到服务网关的前置过滤器中，所有请求过来都进行权限校验</li>
+</ul>
+<h3 id="7、SpringCloud-Bus：消息总线"><a href="#7、SpringCloud-Bus：消息总线" class="headerlink" title="7、SpringCloud Bus：消息总线"></a>7、SpringCloud Bus：消息总线</h3><p>SpringCloud Bus继承了市面上常用的消息代理（rabbit mq、kafka等），连接微服务系统中的所有节点，当有数据变更时候，可以通过消息代理通知微服务及时变更数据。</p>
+<p>SpringCloud Bus解决的问题：</p>
+<ol>
+<li>微服务数据变更，及时同步的问题。</li>
+</ol>
+<h2 id="微服务架构的常用设计模式"><a href="#微服务架构的常用设计模式" class="headerlink" title="微服务架构的常用设计模式"></a>微服务架构的常用设计模式</h2><p>代理设计模式<br>聚合设计模式<br>链条设计模式<br>聚合链条设计模式<br>数据共享设计模式<br>异步消息设计模式</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/" rel="tag">SpringCloud</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        LinPaiBin
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="滨书"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/12/02/AboutMe">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['人生如棋，吾愿为卒','愿你一生努力，一生被爱','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

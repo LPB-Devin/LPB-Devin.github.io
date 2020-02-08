@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="林湃滨的个人博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Java中的集合 |  滨书
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="滨书" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Java/JavaStructure" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Java中的集合
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/29/Java/JavaStructure/" class="article-date">
+  <time datetime="2019-10-29T14:40:53.000Z" itemprop="datePublished">2019-10-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.5k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">9分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>[TOC]</p>
+<blockquote>
+<p>Java集合体系结构（容器）主要有Set、LIst、Map三个接口</p>
+</blockquote>
+<h1 id="一、Collection"><a href="#一、Collection" class="headerlink" title="一、Collection"></a>一、Collection</h1><p><img src="http://static.zybuluo.com/Rico123/eu7lguy7qfpayqroq5l54veq/Collection.jpeg" alt="Set"></p>
+<h2 id="1-1-添加一组元素的操作"><a href="#1-1-添加一组元素的操作" class="headerlink" title="1.1 添加一组元素的操作"></a>1.1 添加一组元素的操作</h2><ul>
+<li><p>Arrays.asList()</p>
+<ul>
+<li><p>接受一个数组或用逗号隔开的元素列表，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = </span><br><span class="line">    Arrays.asList(array,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>);<span class="comment">//array为数组</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>返回一个List对象</p>
+</li>
+<li><p>该方法只是对所产生的list类型做出了最理想的假设，并没有注意你对他赋予什么样的类型，解决方法：可以在其中间插入一条”线索”，这称为显示类型参数说明，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.&lt;Integer&gt;asList()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Collections.addAll()</p>
+<ul>
+<li><p>接受一个Collection对象，以及一个数组或一个用逗号分隔的元素列表，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Collections.addAll(list,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>);</span><br><span class="line"><span class="comment">//将元素添加到list（Collection类型）对象中</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>无返回值，操作Collection对象参数</p>
+</li>
+</ul>
+</li>
+<li><p>Collection.addAll()</p>
+<ul>
+<li><p>只能接受另一个Collection对象作为参数，运行起来比较快，但没有前两者灵活，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collection.addAll(list);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><blockquote>
+<p>List可以将元素维护在特定的序列中，该接口在Collection的基础上添加了大量方法，可以在List的中间插入和删除元素</p>
+</blockquote>
+<p>List是无序列表，主要实现的类有ArrayList、LinkedList、vertor；</p>
+<h3 id="两种List类型"><a href="#两种List类型" class="headerlink" title="两种List类型"></a>两种List类型</h3><h4 id="1、ArrayList"><a href="#1、ArrayList" class="headerlink" title="1、ArrayList"></a>1、ArrayList</h4><blockquote>
+<p>可以自动扩充自身尺寸的数组，擅长随机访问元素，但在ArrayList中插入和删除元素时较慢</p>
+</blockquote>
+<ul>
+<li>add()——插入对象</li>
+<li>get()——访问对象，需传入”数组下标”，不需[ ]（操作符重载实现）</li>
+<li>size()——获取元素数量</li>
+</ul>
+<h4 id="2、LinkedList"><a href="#2、LinkedList" class="headerlink" title="2、LinkedList"></a>2、LinkedList</h4><blockquote>
+<p>链表结构，在List中进行插入和删除操作的代价较低，提供了优化的顺序访问。其在随机访问方面相对比较慢</p>
+</blockquote>
+<p>LinkedList中还添加了可以使用它作为栈、队列或者双端队列的方法。</p>
+<p>泛型在List中的作用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> List&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定了该容器实例能够保存的类型，可以在编译器防止将错误类型的对象放入到容器中；</li>
+<li>在元素从容器中取出的时候，可以不用进行类型转换(因为容器通过泛型已经知道它保存的是什么类型)，在调用get()时会帮你进行类型转换</li>
+<li>不需要使用容器中元素的索引时，可以使用foreach选择容器中的每个元素</li>
+</ul>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
+<li>get()：返回指定下标（位置）的元素；</li>
+<li>contains()：确定某个对象是否在列表中；</li>
+<li>remove()：通过指定对象的引用从List中移除该对象；</li>
+<li>indexOf()：通过指定对象的引用返回对象在List中对应的下标位置，不存在则返回-1；</li>
+<li>subList()：从较大的List中创建出一个片段，且对subList所产生的列表的修改也会反映到初始列表中，反过来初始列表的修改也会反映到subList产生的列表中；</li>
+<li>removeAll()：从List中移除所有的元素；</li>
+<li>set()：在指定的索引处（第一个参数），用第二个参数替换该位置的元素；</li>
+<li>addAll()：可以在指定位置（第一个参数）插入一段新的列表</li>
+<li>isEmpty()：List为空时返回true</li>
+<li>clear()：清空List</li>
+<li>toArray()：转换为一个数组。</li>
+<li>Queue的实现：<ul>
+<li>element()：返回列表头（不移除），列表为空时抛出OnSuchElementException异常</li>
+<li>offer()：在表尾添加元素</li>
+<li>peek()：返回列表头，列表为空时返回null</li>
+<li>poll()：移除并返回列表的头，列表为空时返回null</li>
+<li>remove()：移除并返回列表的头，列表为空时抛出NoSuchElementException异常</li>
+</ul>
+</li>
+</ul>
+<h2 id="Iterator-迭代器"><a href="#Iterator-迭代器" class="headerlink" title="Iterator 迭代器"></a>Iterator 迭代器</h2><blockquote>
+<p>也是一种设计模式。迭代器是一个对象，用于遍历并选择序列中的对象，而程序员可以不用关心该序列底层的结构</p>
+</blockquote>
+<p>Java中的Iterator只能单向移动，作用如下：</p>
+<ul>
+<li>使用方法Iterator()要求容器返回一个Iterator</li>
+<li>使用next()获得序列中的下一个元素</li>
+<li>使用hasNext()检查序列中是否还有元素</li>
+<li>使用remove()将序列中的下一个元素移除</li>
+</ul>
+<blockquote>
+<p>如果只是考虑遍历序列，不打算修改序列对象本身，使用foreach语法会显得更加简洁</p>
+</blockquote>
+<h3 id="真正的作用"><a href="#真正的作用" class="headerlink" title="真正的作用"></a>真正的作用</h3><p>能够将遍历或修改序列的操作与序列的底层结构分离，它<strong>统一了对容器的访问方式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">(Iterator&lt;Integer&gt; it)</span></span>&#123;</span><br><span class="line">    						<span class="comment">//参数不关心容器是哪种类型</span></span><br><span class="line">    <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">        <span class="keyword">int</span> i = it.next();</span><br><span class="line">        System.out.print(i+<span class="string">"  "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><blockquote>
+<p>Set不保存重复的元素，其基于对象的值来确定归属性</p>
+</blockquote>
+<p> 实现了Collection接口，且没有额外的功能（Set实际上就是Collection，只是表现出不同的行为）；</p>
+<p>Set接口主要实现的类有HashSet和TreeSet。</p>
+<p>常用到的Set有HashSet，LinkedHashSet 和 TreeSet。</p>
+<blockquote>
+<ul>
+<li>一般地，如果需要一个访问快速的Set，你应该使用HashSet；</li>
+<li>当你需要一个排序的Set，你应该使用TreeSet；</li>
+<li>当你需要记录下插入时的顺序时，你应该使用LinedHashSet。</li>
+</ul>
+</blockquote>
+<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><blockquote>
+<p>HashSet，实现了Set接口，使用hash函数存储元素，其中的元素排列没有顺序。其add()、remove()以及 contains()等方法的复杂度为O(1)。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Set</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">5024744406713321676L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 底层支持，HashMap可以代表一个HashMap，也可以代表一个LinkedHashMap</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;     </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Dummy value to associate with an Object in the backing Map</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();    <span class="comment">// 傀儡对象</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="LinkedHashSet——HashSet-子类"><a href="#LinkedHashSet——HashSet-子类" class="headerlink" title="LinkedHashSet——HashSet 子类"></a>LinkedHashSet——HashSet 子类</h4><p>​    HashSet是HashSet的子类，其被委托到HashMap的子类LinkedHashMap进行实现，实现了Set接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Constructs a new, empty linked hash set.  (This package private</span></span><br><span class="line"><span class="comment">  * constructor is only used by LinkedHashSet.) The backing</span></span><br><span class="line"><span class="comment">  * HashMap instance is a LinkedHashMap with the specified initial</span></span><br><span class="line"><span class="comment">  * capacity and the specified load factor.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span>      initialCapacity   the initial capacity of the hash map</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span>      loadFactor        the load factor of the hash map</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span>      dummy             ignored (distinguishes this</span></span><br><span class="line"><span class="comment">  *             constructor from other int, float constructor.)</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@throws</span>     IllegalArgumentException if the initial capacity is less</span></span><br><span class="line"><span class="comment">  *             than zero, or if the load factor is nonpositive</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> HashSet(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor, <span class="keyword">boolean</span> dummy) &#123;</span><br><span class="line"> map = <span class="keyword">new</span> LinkedHashMap&lt;E,Object&gt;(initialCapacity, loadFactor);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p>​    TreeSet委托给TreeMap（其实现了NavigableSet接口）进行实现，实现了NavigableSet接口（SortedSet的扩展）</p>
+<p>TreeSet将元素存储在<strong>红黑树</strong>数据结构中，结果有序</p>
+<p>TreeSet默认是按照<strong>字典序</strong>排序的，如果想按照字母序排序，可以在TreeSet的构造器中传入String.CASE_INSENTIVE_ORDER比较器(比较器，建立排序顺序的对象)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = </span><br><span class="line">    <span class="keyword">new</span> TreeSet&lt;String&gt;(String.CASE_INSENTIV_ORDER);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其源码简述如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeSet</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">NavigableSet</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The backing map.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> NavigableMap&lt;E,Object&gt; m;   <span class="comment">// 底层支持</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Dummy value to associate with an Object in the backing Map</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">new</span> TreeMap&lt;E,Object&gt;());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><blockquote>
+<p>典型的先进先出FIFO容器</p>
+</blockquote>
+<p>相关方法：</p>
+<ul>
+<li>offer()：在允许的情况下，将一个元素插入到队尾</li>
+<li>peek()、element()：在不移除的情况下返回队头<ul>
+<li>peek()：队列为空时返回null</li>
+<li>element()：队列为空时抛出NoSuchelementException异常</li>
+</ul>
+</li>
+<li>poll()、remove()：移除并返回队头<ul>
+<li>poll()：队列为空时返回null</li>
+<li>remove()：队列为空时抛出NoSuchelementException异常</li>
+</ul>
+</li>
+</ul>
+<h1 id="二、Map"><a href="#二、Map" class="headerlink" title="二、Map"></a>二、Map</h1><p>Map为键值对，主要的实现类有HashMap，TreeMap和HashTable。</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="Java中HashMap与HashTable的联系与区别"><a href="#Java中HashMap与HashTable的联系与区别" class="headerlink" title="Java中HashMap与HashTable的联系与区别"></a>Java中HashMap与HashTable的联系与区别</h3><h4 id="HashMap与HashTable的联系"><a href="#HashMap与HashTable的联系" class="headerlink" title="HashMap与HashTable的联系"></a>HashMap与HashTable的联系</h4><ol>
+<li>都实现了Map接口，保存了Key-Value（键值对）</li>
+<li>两者的数据结构类似。HashMap和HashTable都是由数组元素为链表头节点的数组组成。</li>
+</ol>
+<h4 id="HashMap-与-HashTable-的区别"><a href="#HashMap-与-HashTable-的区别" class="headerlink" title="HashMap 与 HashTable 的区别"></a>HashMap 与 HashTable 的区别</h4><ol>
+<li><p>两者继承的父类不同；</p>
+<blockquote>
+<p>HashMap继承AbstractMap类，而HashTable继承Dictionary类。</p>
+</blockquote>
+</li>
+<li><p>HashMap是线程不安全的，而HashTable是线程安全的；</p>
+<ol>
+<li>HashMap在外部没有做同步处理的情况下，是非Synchronize（同步）的，不能保证在多并发条件下对数据的保护，容易产生脏数据；</li>
+<li>HashTable中的方法是Synchronize的；可以在多并发环境下直接使用HashTable；</li>
+</ol>
+<blockquote>
+<p>在单核CPU中HashMap的效率是比HashTable高的，而HashTable更适合在多线程中使用。</p>
+</blockquote>
+</li>
+<li><p>提供contains：</p>
+<ol>
+<li>HashMap没有contians，只有containsKey和containsValue，认为contians会容易引起误解；</li>
+<li>HashTable保留了contains，containsValue和containsKey方法。（但contains和containsValue的功能是相同的）</li>
+</ol>
+</li>
+<li><p>对key和value的空值允许情况：</p>
+<ol>
+<li>HashMap中key和value都不允许为null；</li>
+<li>HashTable中空值可以作为Key，也可以有一个/多个Key的值为空值；（其中的get()方法返回null的意思产生歧义，可能是该Key上的值为null，也可能是不存在该Key）</li>
+</ol>
+<blockquote>
+<p>原因（也是HashMap与HashTable的区别之一）：当变量为null时，其hashcode（哈希值）也为null；</p>
+<p>而<strong>两者对Key和Value的取值方式不同</strong></p>
+<ul>
+<li>HashMap中的Key值是直接取变量对应的 hashcode值 作为Key；</li>
+<li>HashTable中会通过hash运算计算获取Value对应的Key；</li>
+</ul>
+</blockquote>
+</li>
+<li><p>HashMap和HashTable内部的数组初始化和扩容方式也不相同</p>
+<ol>
+<li>HashMap的hash数组默认长度大小为16，扩容方式为2的指数：<ul>
+<li>length_HashMap = 16 * 2<sup>n</sup>（n为扩容次数）</li>
+</ul>
+</li>
+<li>HashTable的hash数组默认长度大小为11，扩容方式为两倍加一：<ul>
+<li>length_HashTable = (上一次HashTable数组长度) * 2 + 1</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Java1-8的HashMap有什么改进吗？"><a href="#Java1-8的HashMap有什么改进吗？" class="headerlink" title="Java1.8的HashMap有什么改进吗？"></a>Java1.8的HashMap有什么改进吗？</h3><ul>
+<li>1.8对HashMap的数据结构进行了改进，增加了判断是否变形为红黑树的阈值；1.7的HashMap使用链地址法进行哈希存储的，其中存在的明显的缺点便是当哈希因子所在的链表过长的时候，效率会很低；在1.8中增加了<strong>判断是否变形成为红黑树</strong>，它有一个阈值（8），当达到这个值时，链表便会变形成为红黑树。</li>
+<li>1.8解决了resize时会造成死循环的问题。在1.7之中采用的是头插法，所以在迁移元素的时候，会将元素的顺序改变；1.8采用的是尾插法，能够很快的解决问题。</li>
+</ul>
+<h3 id="HashMap为什么要满足2n扩容"><a href="#HashMap为什么要满足2n扩容" class="headerlink" title="HashMap为什么要满足2n扩容"></a>HashMap为什么要满足2n扩容</h3><p>在resize时，key的hash值是要进行位运算的，初始容量为16（即2<sup>4</sup>），二进制表示为10000，将其二进制进行（n-1）&amp;hash；其中n-1得到01111，与hash值与运算便可保留前四位的值，结果与取余差不多，但效率比取余高，扩容满足2<sup>n</sup>的话，就依然能够保留二进制算法。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2019/10/29/Java/JavaStructure/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/11/02/XSS%E6%94%BB%E5%87%BB/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【XSS攻击】XSS攻击简介以及预防
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/10/24/Jpa/JpaPagingQuery/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JpaPagingQuery</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: '',
+        app_id: 'gtXNe43HVDH72a7XMn9zNgz8-gzGzoHsz',
+        app_key: 'Df8WdcqcC2DCWL1pfcWb4QfN',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '既然都来了，便留个爪印呗~_(¦3」∠)_',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        LinPaiBin
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="滨书"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/12/02/AboutMe">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['人生如棋，吾愿为卒','愿你一生努力，一生被爱','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>
